@@ -1,116 +1,49 @@
-# 404 Web Architect Pro
+# 404 Web Architect Pro v2.1.2 Web Upload Clean
 
-Generador estático/offline de modelos profesionales de páginas web. Incluye **1000 presets locales**, filtros, brief editable, preview desktop/móvil, auditoría automática, **kit comercial exportable**, salida HTML/JSON/Markdown y pruebas E2E con Playwright.
+Versión estática preparada para publicar directamente en GitHub Pages desde la interfaz web de GitHub.
 
-![Demo desktop](demo/desktop-preview.svg)
+## Qué corrige esta versión
 
-## Demo móvil
+- Elimina `.github/workflows/quality.yml` para evitar errores de permisos o bloqueo al hacer commit desde la web de GitHub.
+- Mantiene solo archivos estáticos compatibles con GitHub Pages.
+- Conserva el botón **Empezar de cero** y el botón **Crear otro proyecto**.
+- Refuerza el bloqueo de pasos: no se puede saltar a `#paso-5` manualmente si los pasos anteriores no están completados.
+- Limpia progreso, brief, modelo, skin, filtros y hash al reiniciar.
 
-![Demo móvil](demo/mobile-preview.svg)
+## Archivos que debes subir
 
-## Qué problema resuelve
+Sube el contenido descomprimido de esta carpeta al repositorio, no el ZIP.
 
-404 Web Architect Pro sirve para pasar de una idea vaga a una propuesta web accionable: estructura, copy base, secciones, CTA, KPIs, checklist QA y landing HTML exportable. Está pensado para escritores, apps, SaaS, portfolios, productos, restaurantes, hoteles, dashboards, comunidades y proyectos indie.
-
-## Qué incluye
-
-- 1000 modelos locales de web.
-- 50 categorías profesionales.
-- 20 estilos visuales.
-- Buscador con normalización de tildes, filtros y orden por puntuación.
-- Brief editable: marca, oferta, público, CTA, tono e intensidad visual.
-- Preview responsive en desktop/móvil.
-- **Kit comercial** con posicionamiento, copy base, arquitectura, plan de producción, KPIs y checklist QA.
-- Auditoría automática de arquitectura, UX, accesibilidad, seguridad, rendimiento y GitHub.
-- Exportación a HTML, JSON y Markdown.
-- Copia de prompt profesional para usar en ChatGPT, Claude o Gemini.
-- Sin dependencias externas en producción.
-- Compatible con GitHub Pages.
-- Validación local, GitHub Actions y test E2E Playwright.
-
-## Uso rápido
-
-Abre `index.html` directamente en el navegador o súbelo a GitHub Pages. La app funciona sin servidor, sin backend y sin llamadas a internet.
-
-## Validación local
-
-```bash
-npm install
-npm test
+```text
+index.html
+styles.css
+app.js
+models.js
+demo/
+README.md
+LICENSE
+CHANGELOG.md
+INFORME_FINAL.md
+QUALITY_GATE.md
+SECURITY.md
+INSTRUCCIONES_SUBIDA_GITHUB.md
+MANIFIESTO_ARCHIVOS.txt
+.nojekyll
 ```
 
-Comprueba:
+## Publicación en GitHub Pages
 
-- 1000 modelos exactos.
-- 50 categorías y 20 estilos.
-- IDs y slugs únicos.
-- Campos obligatorios completos.
-- Paletas hexadecimales seguras.
-- Tags sin duplicados.
-- Presencia de checks críticos de móvil, accesibilidad, seguridad, producto y GitHub.
+1. Descomprime el ZIP.
+2. Entra dentro de la carpeta descomprimida.
+3. Selecciona todos los archivos y carpetas de dentro.
+4. Arrástralos a GitHub en **Add file → Upload files**.
+5. Escribe un commit simple, por ejemplo: `Initial web upload clean`.
+6. Pulsa **Commit changes**.
+7. Ve a **Settings → Pages**.
+8. Source: **Deploy from a branch**.
+9. Branch: **main** / carpeta **root**.
+10. Guarda y espera a que GitHub Pages publique.
 
-## Pruebas E2E reales
+## Nota importante
 
-```bash
-npm install
-npx playwright install chromium
-npm run test:e2e
-```
-
-Cubren:
-
-- Carga inicial y catálogo de 1000 modelos.
-- Búsqueda, selección y actualización del brief.
-- Preview móvil sin scroll horizontal.
-- Descarga HTML, JSON y kit Markdown.
-- Estados accesibles `aria-pressed`.
-
-## Publicar en GitHub Pages
-
-1. Crea un repositorio nuevo.
-2. Sube todos los archivos, incluida la carpeta `.github`.
-3. En GitHub: **Settings → Pages**.
-4. Source: `Deploy from a branch`.
-5. Branch: `main` y carpeta `/root`.
-6. Guarda y espera a que GitHub publique la web.
-
-## Estructura
-
-```txt
-404-web-architect-pro/
-├─ index.html
-├─ styles.css
-├─ app.js
-├─ models.js
-├─ package.json
-├─ README.md
-├─ LICENSE
-├─ INFORME_FINAL.md
-├─ QUALITY_GATE.md
-├─ SECURITY.md
-├─ CHANGELOG.md
-├─ CONTRIBUTING.md
-├─ playwright.config.js
-├─ demo/
-│  ├─ desktop-preview.svg
-│  └─ mobile-preview.svg
-├─ tests/
-│  └─ e2e/
-│     └─ commercial.spec.js
-├─ tools/
-│  ├─ validate-models.mjs
-│  └─ validate-app.mjs
-└─ .github/
-   └─ workflows/
-      └─ validate.yml
-```
-
-## Riesgos pendientes honestos
-
-- Los 1000 modelos son presets generados y curados por categoría/estilo, no plantillas visuales diseñadas manualmente una a una.
-- La exportación crea una landing HTML completa, no un proyecto React/Vue/Next.
-- Para un 10/10 comercial real de mercado aún conviene hacer playtesting humano largo, métricas de conversión reales y revisión manual de copy por nicho.
-
-## Licencia
-
-MIT.
+Esta versión no incluye GitHub Actions. Para una web estática de GitHub Pages no hace falta. Quitar Actions reduce el riesgo de error al subir desde navegador.

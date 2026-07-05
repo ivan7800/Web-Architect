@@ -1,0 +1,24 @@
+404 Web Architect Pro v2.1.2 Web Upload Clean
+
+Subir estos archivos/carpetas a la raíz del repositorio:
+
+- index.html
+- styles.css
+- app.js
+- models.js
+- demo/
+- README.md
+- LICENSE
+- CHANGELOG.md
+- INFORME_FINAL.md
+- QUALITY_GATE.md
+- SECURITY.md
+- INSTRUCCIONES_SUBIDA_GITHUB.md
+- MANIFIESTO_ARCHIVOS.txt
+- .nojekyll
+
+No incluye:
+
+- .github/workflows/
+- node_modules/
+- dependencias externas

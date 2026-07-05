@@ -8,6 +8,52 @@
   const SANS  = "'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif";
   const SERIF = "Georgia, 'Iowan Old Style', 'Times New Roman', serif";
   const MONO  = "'SFMono-Regular', ui-monospace, 'SF Mono', 'Courier New', monospace";
+  const DEFAULT_SKIN = 'obsidian';
+  const STORAGE_KEYS = [
+    '404-web-architect-brief',
+    '404-web-architect-selected',
+    '404-web-architect-skin',
+    '404-web-architect-step'
+  ];
+
+  const QUICK_PRESETS = {
+    autor: {
+      brandName: 'I. Roig / Universo 404',
+      offer: 'Web de autor premium para novelas oscuras, universo narrativo, apps 404 y enlaces a Amazon',
+      audience: 'Lectores de thriller psicológico, horror cósmico, misterio oscuro y ficción de culto',
+      mainCta: 'Entrar al universo',
+      tone: 'Cinematográfico',
+      intensity: 9,
+      search: 'web de autor novela landing de novela kdp dark academia premium oscuro'
+    },
+    app: {
+      brandName: '404 App Studio',
+      offer: 'Landing premium para presentar una app web, demo, beneficios, capturas y llamada a probarla',
+      audience: 'Usuarios avanzados que buscan herramientas útiles, rápidas y visualmente cuidadas',
+      mainCta: 'Probar la app',
+      tone: 'Futurista limpio',
+      intensity: 8,
+      search: 'saas app dashboard ia landing producto digital demo'
+    },
+    producto: {
+      brandName: 'Marca Premium',
+      offer: 'Página de venta elegante para un producto diferenciado con prueba social y propuesta clara',
+      audience: 'Compradores exigentes que valoran diseño, confianza y una decisión fácil',
+      mainCta: 'Comprar ahora',
+      tone: 'Premium oscuro',
+      intensity: 8,
+      search: 'producto fisico tienda boutique luxury brand ecommerce premium'
+    },
+    servicio: {
+      brandName: 'Estudio Profesional',
+      offer: 'Web de servicios premium para captar clientes, explicar proceso, mostrar casos y cerrar contactos',
+      audience: 'Empresas, creadores y profesionales que necesitan una solución seria y rápida',
+      mainCta: 'Solicitar propuesta',
+      tone: 'Corporativo elite',
+      intensity: 7,
+      search: 'agencia digital consultoria portfolio creativo corporate saas'
+    }
+  };
 
   const SKIN_CATEGORIES = [
     { id: 'neon',      label: 'Oscuras / neón' },
@@ -157,7 +203,7 @@
     visible: INITIAL_VISIBLE,
     selected: models[0] || null,
     brief: {},
-    skin: 'dark'
+    skin: DEFAULT_SKIN
   };
 
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -169,6 +215,9 @@
     },
     set(key, value) {
       try { window.localStorage.setItem(key, value); } catch { /* storage bloqueado */ }
+    },
+    remove(key) {
+      try { window.localStorage.removeItem(key); } catch { /* storage bloqueado */ }
     }
   };
 
@@ -216,6 +265,7 @@
       auditList:        $('#auditList'),
       blueprintOutput:  $('#blueprintOutput'),
       toast:            $('#toast'),
+      briefForm:        $('#briefForm'),
       brandName:        $('#brandName'),
       offer:            $('#offer'),
       audience:         $('#audience'),
@@ -424,6 +474,48 @@
     }
   };
 
+  const scoreModelAgainstText = (model, text) => {
+    const terms = normalizeText(text)
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length > 2 && !STOPWORDS.has(w));
+    const hay = normalizeText([
+      model.title, model.category, model.style, model.layout,
+      model.purpose, model.vibe, model.audience,
+      ...(Array.isArray(model.tags) ? model.tags : [])
+    ].join(' '));
+    const matches = terms.reduce((acc, term) => acc + (hay.includes(term) ? 1 : 0), 0);
+    return matches * 1000 + Number(model.score || 0);
+  };
+
+  const bestModelForText = (text) => models
+    .slice()
+    .sort((a, b) => scoreModelAgainstText(b, text) - scoreModelAgainstText(a, text))[0];
+
+  const applyQuickPreset = (presetId) => {
+    const preset = QUICK_PRESETS[presetId];
+    if (!preset) return;
+    ['brandName', 'offer', 'audience', 'mainCta', 'tone', 'intensity'].forEach((key) => {
+      if (els[key] && preset[key] !== undefined) els[key].value = preset[key];
+    });
+    if (els.intensityVal) els.intensityVal.value = preset.intensity;
+    saveBrief();
+    const best = bestModelForText(preset.search);
+    if (best) state.selected = best;
+    if (best) safeStorage.set('404-web-architect-selected', best.id);
+    state.query = '';
+    state.category = '';
+    state.style = '';
+    state.visible = INITIAL_VISIBLE;
+    if (els.searchInput) els.searchInput.value = '';
+    if (els.categoryFilter) els.categoryFilter.value = '';
+    if (els.styleFilter) els.styleFilter.value = '';
+    renderGrid();
+    renderSelected();
+    renderRecommended();
+    unlockStep(2);
+    toast(`Modo aplicado: ${preset.brandName}. Ya tienes modelo recomendado.`);
+  };
+
 
   const cardTemplate = (model) => {
     const color = safeColor(model.palette?.[2]);
@@ -585,7 +677,7 @@
       ['Accesibilidad',   'HTML semántico, foco visible, contraste alto, skip link, estados aria y textos de CTA claros.'],
       ['Seguridad',       'Sin dependencias externas, salida escapada, colores saneados y CSP defensiva en index.html.'],
       ['Rendimiento',     'Proyecto estático ligero, datos locales y sin llamadas a red.'],
-      ['GitHub',          'Compatible con GitHub Pages, validación local, README, licencia y workflow de CI.'],
+      ['GitHub',          'Compatible con GitHub Pages: publicación directa desde la interfaz web, sin Actions ni dependencias.'],
       ['Riesgo pendiente','El modelo no sustituye test humano real ni copy final específico de marca.']
     ];
     els.auditList.innerHTML = audits.map(([title, text], i) => `
@@ -778,6 +870,8 @@
     state.selected = found;
     safeStorage.set('404-web-architect-selected', found.id);
     renderSelected();
+    renderGrid();
+    renderRecommended();
     toast(`Modelo seleccionado: ${found.title}`);
   };
 
@@ -822,7 +916,7 @@
     els.stepper.innerHTML = STEPS.map((s) => {
       const st = s.id === stepState.current ? 'current' : s.id <= stepState.maxReached ? 'done' : 'locked';
       const mark = st === 'done' ? '<span aria-hidden="true">✓</span> ' : '';
-      return `<button type="button" class="step-pill" data-state="${st}" data-target="${s.id}" role="tab" aria-selected="${s.id === stepState.current}">${mark}<span class="step-num">${s.id}.</span> ${escapeHtml(s.label)}</button>`;
+      return `<button type="button" class="step-pill" data-state="${st}" data-target="${s.id}" role="tab" aria-selected="${s.id === stepState.current}" aria-disabled="${st === 'locked'}">${mark}<span class="step-num">${s.id}.</span> ${escapeHtml(s.label)}</button>`;
     }).join('');
   };
 
@@ -845,8 +939,23 @@
 
   const goToStep = (n) => {
     if (n < 1 || n > STEPS.length) return;
-    if (n > stepState.maxReached) return;
+    if (n > stepState.maxReached) {
+      toast('Completa los pasos anteriores antes de avanzar.');
+      return;
+    }
     window.location.hash = `paso-${n}`;
+    showStep(n);
+  };
+
+  const showRequestedStep = (requested, notify = false) => {
+    const allowed = requested <= stepState.maxReached ? requested : stepState.maxReached;
+    if (requested !== allowed) {
+      if (notify) toast('Ese paso aún está bloqueado. Completa los pasos anteriores.');
+      if (window.location.hash !== `#paso-${allowed}`) window.location.hash = `paso-${allowed}`;
+      showStep(allowed);
+      return;
+    }
+    showStep(allowed);
   };
 
   const validateBrief = () => {
@@ -857,7 +966,7 @@
   };
 
   const initStepper = () => {
-    window.addEventListener('hashchange', () => showStep(stepFromHash()));
+    window.addEventListener('hashchange', () => showRequestedStep(stepFromHash(), true));
 
     els.stepper?.addEventListener('click', (e) => {
       const btn = e.target.closest('.step-pill');
@@ -894,11 +1003,58 @@
     if (window.location.hash !== `#paso-${stepState.current}`) {
       window.location.hash = `paso-${stepState.current}`;
     }
-    showStep(stepState.current);
+    showRequestedStep(stepState.current);
+  };
+
+  /* ── RESET / CLEAR FLOW ─────────────────────────────────── */
+  const resetFlow = () => {
+    const hasProgress = stepState.maxReached > 1 || STORAGE_KEYS.some((key) => safeStorage.get(key));
+    if (hasProgress && !window.confirm('¿Quieres borrar el progreso actual y volver al paso 1?')) return;
+
+    STORAGE_KEYS.forEach((key) => safeStorage.remove(key));
+
+    els.briefForm?.reset();
+    state.query = '';
+    state.category = '';
+    state.style = '';
+    state.sort = 'score';
+    state.visible = INITIAL_VISIBLE;
+    state.selected = models[0] || null;
+    state.brief = {};
+    skinState.query = '';
+    skinState.category = '';
+
+    if (els.searchInput) els.searchInput.value = '';
+    if (els.categoryFilter) els.categoryFilter.value = '';
+    if (els.styleFilter) els.styleFilter.value = '';
+    if (els.sortFilter) els.sortFilter.value = 'score';
+    if (els.skinSearch) els.skinSearch.value = '';
+    if (els.intensityVal) els.intensityVal.value = els.intensity?.value || 8;
+    if (els.briefError) els.briefError.classList.remove('visible');
+
+    stepState.current = 1;
+    stepState.maxReached = 1;
+    applySkin(DEFAULT_SKIN);
+    setPreviewMode('desktop');
+    renderGrid();
+    renderSelected();
+    renderRecommended();
+
+    if (window.location.hash !== '#paso-1') window.location.hash = 'paso-1';
+    showStep(1);
+    toast('Progreso limpiado. Vuelves al paso 1.');
   };
 
   /* ── EVENTS ─────────────────────────────────────────────── */
   const initEvents = () => {
+    document.addEventListener('click', (e) => {
+      const resetBtn = e.target.closest('[data-reset-flow]');
+      if (resetBtn) { resetFlow(); return; }
+
+      const presetBtn = e.target.closest('[data-preset]');
+      if (presetBtn) applyQuickPreset(presetBtn.dataset.preset);
+    });
+
     // Skin gallery (paso 3): clic delegado + búsqueda + filtro por categoría
     els.skinGallery?.addEventListener('click', (e) => {
       const btn = e.target.closest('.skin-btn');
@@ -1029,7 +1185,7 @@
     if (savedModel) state.selected = savedModel;
 
     const savedSkin = safeStorage.get('404-web-architect-skin');
-    applySkin(SKINS.some((s) => s.id === savedSkin) ? savedSkin : 'dark');
+    applySkin(SKINS.some((s) => s.id === savedSkin) ? savedSkin : DEFAULT_SKIN);
 
     restoreBrief();
     if (els.intensityVal) els.intensityVal.value = els.intensity?.value || 8;

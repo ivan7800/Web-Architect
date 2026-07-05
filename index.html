@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#070A12" />
-  <meta name="description" content="404 Web Architect Pro: generador offline de modelos profesionales de páginas web con 1000 presets, preview, auditoría y exportación." />
+  <meta name="description" content="404 Web Architect Pro: generador premium offline de arquitecturas web con presets guiados, 1000 modelos, skins, preview, auditoría y exportación lista para GitHub Pages." />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
-  <title>404 Web Architect Pro</title>
+  <title>404 Web Architect Pro · Premium Builder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -18,19 +18,26 @@
         <span class="brand-mark">404</span>
         <div>
           <strong>Web Architect Pro</strong>
-          <small>1000 modelos profesionales · offline · exportable</small>
+          <small>Premium builder · 1000 modelos · offline · GitHub Pages</small>
         </div>
       </div>
       <div class="top-actions">
+        <button class="ghost" data-reset-flow type="button" aria-label="Limpiar progreso y volver al paso 1">Empezar de cero</button>
         <button class="primary" id="randomBtn" type="button">Modelo aleatorio</button>
       </div>
     </nav>
 
     <section class="hero-shell" id="main">
       <div class="hero-copy">
-        <p class="eyebrow">Constructor de páginas web listo para GitHub</p>
-        <h1>Crea modelos pro de webs en segundos.</h1>
-        <p class="lead">Elige entre 1000 estructuras profesionales, personaliza marca, tono, secciones y CTA, previsualiza en móvil/escritorio y exporta una landing HTML limpia.</p>
+        <p class="eyebrow">Constructor premium de arquitectura web</p>
+        <h1>De idea básica a web con pinta de producto serio.</h1>
+        <p class="lead">Elige un modo rápido, recibe modelos recomendados, aplica una skin premium, revisa el preview y exporta una landing HTML limpia. Sin nube, sin dependencias y lista para GitHub Pages.</p>
+        <div class="workflow-strip" aria-label="Flujo de uso rápido">
+          <span>1 · Brief</span>
+          <span>2 · Modelo</span>
+          <span>3 · Skin</span>
+          <span>4 · Export</span>
+        </div>
         <div class="hero-actions">
           <button class="primary big" id="generateFromInputs" type="button">Generar web pro</button>
           <button class="ghost big" id="scrollCatalog" type="button">Explorar modelos</button>
@@ -42,11 +49,17 @@
           <div><dt>0</dt><dd>dependencias</dd></div>
         </dl>
       </div>
-      <aside class="hero-card" aria-label="Panel de auditoría rápida">
+      <aside class="hero-card" aria-label="Panel premium de auditoría rápida">
         <span class="pulse"></span>
-        <h2>Auditor IA local</h2>
-        <p>Evalúa estructura, móvil, accesibilidad, conversión, claridad y preparación GitHub.</p>
+        <p class="eyebrow">Panel premium</p>
+        <h2>Auditor local + kit comercial</h2>
+        <p>Evalúa estructura, móvil, accesibilidad, conversión, claridad y preparación GitHub antes de exportar.</p>
         <div class="score-ring" id="heroScore">98</div>
+        <div class="premium-checks" aria-label="Controles incluidos">
+          <span>✓ Modo fácil</span>
+          <span>✓ Preview móvil</span>
+          <span>✓ Export HTML/JSON/MD</span>
+        </div>
         <small>Puntuación del modelo activo</small>
       </aside>
     </section>
@@ -59,8 +72,21 @@
       <div class="panel-head">
         <p class="eyebrow">Paso 1 de 5 · Brief</p>
         <h2 id="controls-title">Cuéntame tu marca</h2>
-        <p class="panel-intro">Completa estos campos para pasar al catálogo.</p>
+        <p class="panel-intro">Completa el brief manualmente o usa un modo rápido. La app elegirá un modelo recomendado y te guiará paso a paso.</p>
       </div>
+      <section class="quickstart-panel" aria-labelledby="quickstart-title">
+        <div>
+          <p class="eyebrow">Modo fácil</p>
+          <h3 id="quickstart-title">No empieces desde cero</h3>
+          <p>Elige un tipo de proyecto y la app rellenará el brief con una dirección premium.</p>
+        </div>
+        <div class="quickstart-grid">
+          <button class="quickstart-card" type="button" data-preset="autor"><strong>Autor / novelas</strong><span>Universo narrativo, Amazon, estética oscura.</span></button>
+          <button class="quickstart-card" type="button" data-preset="app"><strong>App / SaaS</strong><span>Producto digital con demo, beneficios y CTA.</span></button>
+          <button class="quickstart-card" type="button" data-preset="producto"><strong>Producto premium</strong><span>Venta elegante, prueba social y conversión.</span></button>
+          <button class="quickstart-card" type="button" data-preset="servicio"><strong>Servicio profesional</strong><span>Consultoría, agencia o marca personal seria.</span></button>
+        </div>
+      </section>
       <form class="brief-form" id="briefForm" novalidate>
         <label>
           Nombre del proyecto
@@ -193,7 +219,7 @@
         <button class="ghost" id="downloadJson" type="button">Exportar JSON</button>
       </div>
 
-      <div class="panel-head split-head" style="margin-top: 28px;">
+      <div class="panel-head split-head kit-head">
         <div>
           <p class="eyebrow">Kit comercial</p>
           <h3>Propuesta lista para vender o producir</h3>
@@ -221,7 +247,8 @@
         <strong class="audit-grade" id="auditGrade">9.8/10</strong>
       </div>
       <div id="auditList" class="audit-list"></div>
-      <div class="step-footer">
+      <div class="step-footer split-actions">
+        <button class="ghost" data-reset-flow type="button">Crear otro proyecto</button>
         <button class="primary" id="finishBtn" type="button">Finalizar</button>
       </div>
     </section>
