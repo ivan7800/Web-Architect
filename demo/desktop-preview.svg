@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-labelledby="title desc">
+  <title id="title">404 Web Architect Pro desktop demo</title>
+  <desc id="desc">Vista demo de la aplicación con catálogo, preview y kit comercial.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#060912"/><stop offset="1" stop-color="#111827"/></linearGradient>
+    <linearGradient id="a" x1="0" x2="1"><stop stop-color="#7CFFCB"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="18" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1400" height="860" rx="34" fill="url(#bg)"/>
+  <circle cx="1100" cy="120" r="220" fill="#7CFFCB" opacity=".12" filter="url(#glow)"/>
+  <circle cx="210" cy="720" r="230" fill="#8B5CF6" opacity=".14" filter="url(#glow)"/>
+  <g fill="none" stroke="#fff" opacity=".06"><path d="M0 120h1400M0 240h1400M0 360h1400M0 480h1400M0 600h1400M0 720h1400"/><path d="M160 0v860M320 0v860M480 0v860M640 0v860M800 0v860M960 0v860M1120 0v860M1280 0v860"/></g>
+  <rect x="52" y="46" width="1296" height="768" rx="28" fill="#0B1220" stroke="#FFFFFF" stroke-opacity=".12"/>
+  <rect x="86" y="78" width="88" height="54" rx="16" fill="url(#a)" opacity=".95"/>
+  <text x="113" y="112" fill="#03110C" font-family="Inter, Arial" font-weight="900" font-size="24">404</text>
+  <text x="194" y="101" fill="#EDF4FF" font-family="Inter, Arial" font-weight="800" font-size="27">Web Architect Pro</text>
+  <text x="194" y="126" fill="#9DA9BD" font-family="Inter, Arial" font-size="15">1000 modelos · preview · kit comercial · E2E</text>
+  <rect x="1078" y="84" width="112" height="38" rx="19" fill="#FFFFFF" opacity=".06" stroke="#fff" stroke-opacity=".14"/>
+  <rect x="1204" y="84" width="110" height="38" rx="19" fill="#7CFFCB"/>
+  <text x="1223" y="109" fill="#04100D" font-family="Inter, Arial" font-weight="800" font-size="14">Aleatorio</text>
+  <rect x="86" y="170" width="430" height="562" rx="24" fill="#101827" stroke="#FFFFFF" stroke-opacity=".12"/>
+  <text x="118" y="218" fill="#7CFFCB" font-family="Inter, Arial" font-size="13" font-weight="800" letter-spacing="4">BRIEF</text>
+  <text x="118" y="254" fill="#EDF4FF" font-family="Inter, Arial" font-size="34" font-weight="900">Personaliza</text>
+  <g fill="#FFFFFF" opacity=".07"><rect x="118" y="292" width="350" height="46" rx="12"/><rect x="118" y="356" width="350" height="46" rx="12"/><rect x="118" y="420" width="350" height="46" rx="12"/><rect x="118" y="484" width="350" height="46" rx="12"/></g>
+  <rect x="118" y="560" width="150" height="46" rx="23" fill="#7CFFCB"/>
+  <rect x="280" y="560" width="150" height="46" rx="23" fill="#FFFFFF" opacity=".06" stroke="#fff" stroke-opacity=".14"/>
+  <rect x="548" y="170" width="766" height="270" rx="24" fill="#101827" stroke="#FFFFFF" stroke-opacity=".12"/>
+  <text x="580" y="218" fill="#7CFFCB" font-family="Inter, Arial" font-size="13" font-weight="800" letter-spacing="4">CATÁLOGO</text>
+  <text x="580" y="254" fill="#EDF4FF" font-family="Inter, Arial" font-size="34" font-weight="900">1000 modelos de web</text>
+  <g><rect x="580" y="292" width="330" height="112" rx="18" fill="#FFFFFF" opacity=".055"/><rect x="928" y="292" width="330" height="112" rx="18" fill="#FFFFFF" opacity=".055"/><text x="604" y="330" fill="#EDF4FF" font-family="Inter, Arial" font-size="18" font-weight="800">Landing SaaS B2B</text><text x="952" y="330" fill="#EDF4FF" font-family="Inter, Arial" font-size="18" font-weight="800">Autor / KDP Premium</text></g>
+  <rect x="548" y="464" width="374" height="268" rx="24" fill="#101827" stroke="#FFFFFF" stroke-opacity=".12"/>
+  <text x="580" y="512" fill="#7CFFCB" font-family="Inter, Arial" font-size="13" font-weight="800" letter-spacing="4">PREVIEW</text>
+  <text x="580" y="552" fill="#EDF4FF" font-family="Inter, Arial" font-size="30" font-weight="900">Web exportable</text>
+  <rect x="580" y="588" width="300" height="106" rx="18" fill="#7CFFCB" opacity=".11" stroke="#7CFFCB" stroke-opacity=".4"/>
+  <rect x="946" y="464" width="368" height="268" rx="24" fill="#101827" stroke="#FFFFFF" stroke-opacity=".12"/>
+  <text x="978" y="512" fill="#7CFFCB" font-family="Inter, Arial" font-size="13" font-weight="800" letter-spacing="4">PRODUCTO</text>
+  <text x="978" y="552" fill="#EDF4FF" font-family="Inter, Arial" font-size="30" font-weight="900">Kit comercial</text>
+  <g fill="#FFFFFF" opacity=".08"><rect x="978" y="588" width="292" height="18" rx="9"/><rect x="978" y="622" width="240" height="18" rx="9"/><rect x="978" y="656" width="270" height="18" rx="9"/></g>
+</svg>

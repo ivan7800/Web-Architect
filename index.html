@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070A12" />
+  <meta name="description" content="404 Web Architect Pro: generador offline de modelos profesionales de páginas web con 1000 presets, preview, auditoría y exportación." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <title>404 Web Architect Pro</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <header class="app-header">
+    <nav class="topbar" aria-label="Navegación principal">
+      <div class="brand-block" aria-label="404 Web Architect Pro">
+        <span class="brand-mark">404</span>
+        <div>
+          <strong>Web Architect Pro</strong>
+          <small>1000 modelos profesionales · offline · exportable</small>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="primary" id="randomBtn" type="button">Modelo aleatorio</button>
+      </div>
+    </nav>
+
+    <section class="hero-shell" id="main">
+      <div class="hero-copy">
+        <p class="eyebrow">Constructor de páginas web listo para GitHub</p>
+        <h1>Crea modelos pro de webs en segundos.</h1>
+        <p class="lead">Elige entre 1000 estructuras profesionales, personaliza marca, tono, secciones y CTA, previsualiza en móvil/escritorio y exporta una landing HTML limpia.</p>
+        <div class="hero-actions">
+          <button class="primary big" id="generateFromInputs" type="button">Generar web pro</button>
+          <button class="ghost big" id="scrollCatalog" type="button">Explorar modelos</button>
+        </div>
+        <dl class="metrics" aria-label="Resumen de capacidades">
+          <div><dt>1000</dt><dd>modelos</dd></div>
+          <div><dt>50</dt><dd>categorías</dd></div>
+          <div><dt>20</dt><dd>estilos</dd></div>
+          <div><dt>0</dt><dd>dependencias</dd></div>
+        </dl>
+      </div>
+      <aside class="hero-card" aria-label="Panel de auditoría rápida">
+        <span class="pulse"></span>
+        <h2>Auditor IA local</h2>
+        <p>Evalúa estructura, móvil, accesibilidad, conversión, claridad y preparación GitHub.</p>
+        <div class="score-ring" id="heroScore">98</div>
+        <small>Puntuación del modelo activo</small>
+      </aside>
+    </section>
+  </header>
+
+  <nav class="stepper" id="stepper" role="tablist" aria-label="Progreso del flujo"></nav>
+
+  <main class="workspace stepper-mode" id="workspace">
+    <section class="panel control-panel step-panel" data-step="1" aria-labelledby="controls-title">
+      <div class="panel-head">
+        <p class="eyebrow">Paso 1 de 5 · Brief</p>
+        <h2 id="controls-title">Cuéntame tu marca</h2>
+        <p class="panel-intro">Completa estos campos para pasar al catálogo.</p>
+      </div>
+      <form class="brief-form" id="briefForm" novalidate>
+        <label>
+          Nombre del proyecto
+          <input id="brandName" name="brandName" type="text" value="Universo 404" autocomplete="organization" />
+        </label>
+        <label>
+          Qué vendes o presentas
+          <input id="offer" name="offer" type="text" value="Una página premium para presentar una obra, app o producto" />
+        </label>
+        <label>
+          Público objetivo
+          <input id="audience" name="audience" type="text" value="Usuarios exigentes que quieren algo elegante y claro" />
+        </label>
+        <label>
+          CTA principal
+          <input id="mainCta" name="mainCta" type="text" value="Explorar ahora" />
+        </label>
+        <label>
+          Tono
+          <select id="tone" name="tone">
+            <option>Premium oscuro</option>
+            <option>Elegante editorial</option>
+            <option>Futurista limpio</option>
+            <option>Directo comercial</option>
+            <option>Cinematográfico</option>
+            <option>Corporativo elite</option>
+          </select>
+        </label>
+        <label class="range-label">
+          Nivel de intensidad visual
+          <div class="range-row">
+            <input id="intensity" name="intensity" type="range" min="1" max="10" value="8" aria-describedby="intensityVal" />
+            <output id="intensityVal" for="intensity" class="range-output">8</output>
+          </div>
+        </label>
+      </form>
+      <div class="button-row">
+        <button class="primary" id="applyBrief" type="button">Aplicar brief</button>
+        <button class="ghost" id="copyPrompt" type="button">Copiar prompt</button>
+      </div>
+      <p class="step-error" id="briefError">Completa marca, oferta, público y CTA antes de continuar.</p>
+      <div class="step-footer">
+        <button class="primary" id="briefContinue" type="button">Continuar al catálogo <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section class="panel catalog-panel step-panel" data-step="2" id="catalog" aria-labelledby="catalog-title">
+      <div class="panel-head catalog-head">
+        <div>
+          <p class="eyebrow">Paso 2 de 5 · Catálogo</p>
+          <h2 id="catalog-title">Elige tu modelo</h2>
+        </div>
+        <span class="result-count" id="resultCount">1000 resultados</span>
+      </div>
+
+      <div class="recommended-block" id="recommendedBlock">
+        <p class="panel-intro" id="recommendedIntro">Recomendados según tu brief.</p>
+        <div class="model-grid recommended-grid" id="recommendedGrid" aria-live="polite" aria-label="Modelos recomendados según tu brief"></div>
+      </div>
+      <p class="catalog-divider">O explora los 1000 modelos libremente</p>
+
+      <div class="filters" role="search" aria-label="Filtrar modelos">
+        <label class="search-field">
+          Buscar modelo
+          <input id="searchInput" type="search" placeholder="SaaS, autor, KDP, cyberpunk, dashboard..." />
+        </label>
+        <label>
+          Categoría
+          <select id="categoryFilter"><option value="">Todas</option></select>
+        </label>
+        <label>
+          Estilo
+          <select id="styleFilter"><option value="">Todos</option></select>
+        </label>
+        <label>
+          Orden
+          <select id="sortFilter">
+            <option value="score">Mejor puntuación</option>
+            <option value="title">Nombre</option>
+            <option value="category">Categoría</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="model-grid" id="modelGrid" aria-live="polite" aria-label="Resultados del catálogo"></div>
+      <div class="button-row center">
+        <button class="ghost" id="loadMore" type="button">Mostrar más</button>
+      </div>
+      <div class="step-footer">
+        <button class="primary" id="catalogContinue" type="button">Continuar a personalizar <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section class="panel builder-panel step-panel" data-step="3" aria-labelledby="builder-title">
+      <div class="panel-head split-head">
+        <div>
+          <p class="eyebrow">Paso 3 de 5 · Personalizar</p>
+          <h2 id="builder-title">Elige una skin y revisa el preview</h2>
+        </div>
+        <div class="device-switch" role="group" aria-label="Cambiar ancho de preview">
+          <button class="chip active" id="desktopPreview" type="button" aria-pressed="true">Desktop</button>
+          <button class="chip" id="mobilePreview" type="button" aria-pressed="false">Móvil</button>
+        </div>
+      </div>
+
+      <div class="skin-gallery-controls">
+        <input type="search" class="skin-search" id="skinSearch" placeholder="Buscar skin: cyberpunk, editorial, gótico..." aria-label="Buscar skin" />
+      </div>
+      <div class="skin-gallery-chips" id="skinChips" role="group" aria-label="Filtrar skins por categoría"></div>
+      <div class="skin-gallery" id="skinGallery" aria-label="Galería de skins visuales"></div>
+
+      <div class="selected-summary" id="selectedSummary"></div>
+      <div class="preview-shell desktop" id="previewShell">
+        <div class="preview-top"><span></span><span></span><span></span></div>
+        <article class="site-preview" id="sitePreview" aria-label="Previsualización de la web generada"></article>
+      </div>
+      <div class="step-footer">
+        <button class="primary" id="builderContinue" type="button">Continuar a exportar <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section class="panel product-panel step-panel" data-step="4" aria-labelledby="product-title">
+      <div class="panel-head">
+        <p class="eyebrow">Paso 4 de 5 · Exportar</p>
+        <h2 id="product-title">Descarga tu web</h2>
+      </div>
+      <div class="export-grid">
+        <button class="primary" id="downloadHtml" type="button">Descargar HTML</button>
+        <button class="ghost" id="copyHtml" type="button">Copiar HTML</button>
+        <button class="ghost" id="downloadJson" type="button">Exportar JSON</button>
+      </div>
+
+      <div class="panel-head split-head" style="margin-top: 28px;">
+        <div>
+          <p class="eyebrow">Kit comercial</p>
+          <h3>Propuesta lista para vender o producir</h3>
+        </div>
+        <strong class="audit-grade">Exportable</strong>
+      </div>
+      <p class="panel-intro">Convierte el modelo elegido en una propuesta lista para vender, producir o pasar a otra IA/código.</p>
+      <div class="blueprint-output" id="blueprintOutput" aria-live="polite"></div>
+      <div class="export-grid blueprint-actions">
+        <button class="primary" id="copyBlueprint" type="button">Copiar propuesta</button>
+        <button class="ghost" id="downloadKit" type="button">Descargar kit Markdown</button>
+        <button class="ghost" id="copyChecklist" type="button">Copiar checklist QA</button>
+      </div>
+      <div class="step-footer">
+        <button class="primary" id="productContinue" type="button">Ver auditoría <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section class="panel audit-panel step-panel" data-step="5" aria-labelledby="audit-title">
+      <div class="panel-head split-head">
+        <div>
+          <p class="eyebrow">QA</p>
+          <h2 id="audit-title">Informe automático</h2>
+        </div>
+        <strong class="audit-grade" id="auditGrade">9.8/10</strong>
+      </div>
+      <div id="auditList" class="audit-list"></div>
+      <div class="step-footer">
+        <button class="primary" id="finishBtn" type="button">Finalizar</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Hecho para crear modelos de web profesionales sin nube, sin dependencias y con salida lista para GitHub Pages.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script src="models.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="1080" viewBox="0 0 760 1080" role="img" aria-labelledby="title desc">
+  <title id="title">404 Web Architect Pro mobile demo</title>
+  <desc id="desc">Vista demo móvil de la aplicación con botones táctiles y preview responsive.</desc>
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#060912"/><stop offset="1" stop-color="#151C2E"/></linearGradient><linearGradient id="a" x1="0" x2="1"><stop stop-color="#7CFFCB"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs>
+  <rect width="760" height="1080" rx="42" fill="url(#bg)"/>
+  <rect x="130" y="48" width="500" height="984" rx="54" fill="#05070D" stroke="#FFFFFF" stroke-opacity=".16" stroke-width="8"/>
+  <rect x="174" y="92" width="412" height="900" rx="34" fill="#0B1220"/>
+  <rect x="210" y="132" width="72" height="52" rx="16" fill="url(#a)"/>
+  <text x="231" y="166" fill="#03110C" font-family="Inter, Arial" font-size="24" font-weight="900">404</text>
+  <text x="210" y="232" fill="#7CFFCB" font-family="Inter, Arial" font-size="12" font-weight="800" letter-spacing="4">MOBILE FIRST</text>
+  <text x="210" y="286" fill="#EDF4FF" font-family="Inter, Arial" font-size="44" font-weight="900">Crea modelos pro en segundos.</text>
+  <text x="210" y="330" fill="#9DA9BD" font-family="Inter, Arial" font-size="18">Preview móvil, brief, catálogo y kit comercial exportable.</text>
+  <rect x="210" y="382" width="314" height="54" rx="27" fill="#7CFFCB"/>
+  <text x="282" y="416" fill="#04100D" font-family="Inter, Arial" font-size="16" font-weight="900">Generar web pro</text>
+  <g fill="#FFFFFF" opacity=".065"><rect x="210" y="480" width="314" height="104" rx="20"/><rect x="210" y="606" width="314" height="104" rx="20"/><rect x="210" y="732" width="314" height="104" rx="20"/></g>
+  <text x="232" y="522" fill="#EDF4FF" font-family="Inter, Arial" font-size="20" font-weight="800">Modelo seleccionado</text>
+  <text x="232" y="648" fill="#EDF4FF" font-family="Inter, Arial" font-size="20" font-weight="800">Preview responsive</text>
+  <text x="232" y="774" fill="#EDF4FF" font-family="Inter, Arial" font-size="20" font-weight="800">Checklist QA</text>
+  <rect x="286" y="946" width="188" height="10" rx="5" fill="#FFFFFF" opacity=".25"/>
+</svg>

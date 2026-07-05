@@ -1,0 +1,31 @@
+{
+  "name": "404-web-architect-pro",
+  "version": "2.0.0",
+  "description": "Generador offline de 1000 modelos profesionales de páginas web con preview, kit comercial, auditoría, exportación y pruebas E2E.",
+  "type": "module",
+  "scripts": {
+    "test": "node tools/validate-models.mjs && node tools/validate-app.mjs",
+    "test:models": "node tools/validate-models.mjs",
+    "test:app": "node tools/validate-app.mjs",
+    "test:e2e": "playwright test",
+    "test:all": "npm test && npm run test:e2e"
+  },
+  "keywords": [
+    "web",
+    "templates",
+    "landing",
+    "generator",
+    "github-pages",
+    "offline",
+    "responsive",
+    "offline-first",
+    "playwright",
+    "commercial-kit",
+    "e2e"
+  ],
+  "author": "I. Roig",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.54.0"
+  }
+}
