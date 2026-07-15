@@ -11,6 +11,8 @@ const requiredFiles = [
   'styles.css',
   'app.js',
   'models.js',
+  'assets/u404/u404-style-system.css',
+  'assets/u404/u404-style-system.js',
   'README.md',
   'LICENSE',
   'INFORME_FINAL.md',
@@ -20,6 +22,7 @@ const requiredFiles = [
   'CONTRIBUTING.md',
   'playwright.config.js',
   'tests/e2e/commercial.spec.js',
+  'tools/smoke-v3.mjs',
   'demo/desktop-preview.svg',
   'demo/mobile-preview.svg',
   '.github/workflows/validate.yml',
@@ -44,23 +47,25 @@ if (duplicates.length) fail(`IDs duplicados en index.html: ${[...new Set(duplica
 
 for (const id of [
   'modelGrid', 'sitePreview', 'blueprintOutput', 'copyBlueprint', 'downloadKit', 'copyChecklist',
-  'downloadHtml', 'downloadJson', 'desktopPreview', 'mobilePreview'
+  'downloadHtml', 'downloadZip', 'downloadJson', 'desktopPreview', 'mobilePreview',
+  'appTheme', 'architectureSelect', 'sectionEditor', 'saveProject', 'importProject'
 ]) {
   if (!ids.includes(id)) fail(`Falta id crítico en index.html: ${id}`);
   if (!app.includes(`#${id}`) && !app.includes(`$('#${id}')`)) fail(`app.js no referencia el id crítico: ${id}`);
 }
 
-// Sistema de skins v2.0: galería de datos en app.js (SKINS), ya no
+// Galería de skins de salida en app.js (SKINS), ya no
 // un skin-picker de 6 botones fijos en el header (ver CHANGELOG.md)
 if (!index.includes('class="skin-gallery"')) fail('Falta skin-gallery en index.html');
 if (!index.includes('id="skinSearch"') || !index.includes('id="skinChips"')) {
   fail('Falta buscador o chips de categoría de la galería de skins');
 }
 if (!app.includes('const SKINS = [') || !app.includes('applySkin') || !app.includes('renderSkinGallery')) {
-  fail('app.js no implementa correctamente la galería de skins v2.0');
+  fail('app.js no implementa correctamente la galería de skins de salida');
 }
-const skinIds = [...app.matchAll(/id: '([a-z0-9-]+)'/g)].map((m) => m[1]);
-if (skinIds.length < 30) fail(`Se esperaban al menos 30 skins, encontradas: ${skinIds.length}`);
+const skinsBlock = app.slice(app.indexOf('const SKINS = ['), app.indexOf('const state = {'));
+const skinIds = [...skinsBlock.matchAll(/id: '([a-z0-9-]+)'/g)].map((m) => m[1]);
+if (skinIds.length !== 35) fail(`Se esperaban 35 skins, encontradas: ${skinIds.length}`);
 if (new Set(skinIds).size !== skinIds.length) fail('Hay ids de skin duplicados en app.js');
 if (!skinIds.includes('cyberpunk') || !skinIds.includes('dark')) {
   fail('Faltan skins históricas esperadas (dark, cyberpunk)');
@@ -85,6 +90,12 @@ for (const needle of [
   'buildBlueprintData',
   'buildMarkdownKit',
   'buildExportHtml',
+  'buildExportBody',
+  'createZipBlob',
+  'applyProjectData',
+  'renderSectionEditor',
+  'const ARCHITECTURES = [',
+  'const APP_THEMES = {',
   'setPreviewMode',
   'aria-pressed'
 ]) {
@@ -112,10 +123,10 @@ for (const [script, command] of Object.entries({
 if (!pkg.devDependencies?.['@playwright/test']) fail('package.json no declara @playwright/test');
 
 for (const needle of [
-  'demo/desktop-preview.svg',
-  'demo/mobile-preview.svg',
+  '12 arquitecturas',
+  '35 skins',
   'npm run test:e2e',
-  'Kit comercial',
+  'Quality Gate',
   'GitHub Pages'
 ]) {
   if (!readme.includes(needle)) fail(`README.md no contiene ${needle}`);
@@ -140,4 +151,4 @@ for (const needle of [
 }
 if (!playwrightConfig.includes('mobile-chromium')) fail('Playwright config no incluye proyecto móvil');
 
-console.log('OK: app comercial validada. Producto, demo, seguridad, móvil, documentación, GitHub Actions y Playwright E2E presentes.');
+console.log('OK: Studio 3.0 validado. U404, arquitecturas, editor, proyectos, ZIP, seguridad, móvil y pruebas presentes.');

@@ -8,52 +8,37 @@
   const SANS  = "'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif";
   const SERIF = "Georgia, 'Iowan Old Style', 'Times New Roman', serif";
   const MONO  = "'SFMono-Regular', ui-monospace, 'SF Mono', 'Courier New', monospace";
-  const DEFAULT_SKIN = 'obsidian';
-  const STORAGE_KEYS = [
-    '404-web-architect-brief',
-    '404-web-architect-selected',
-    '404-web-architect-skin',
-    '404-web-architect-step'
-  ];
 
-  const QUICK_PRESETS = {
-    autor: {
-      brandName: 'I. Roig / Universo 404',
-      offer: 'Web de autor premium para novelas oscuras, universo narrativo, apps 404 y enlaces a Amazon',
-      audience: 'Lectores de thriller psicológico, horror cósmico, misterio oscuro y ficción de culto',
-      mainCta: 'Entrar al universo',
-      tone: 'Cinematográfico',
-      intensity: 9,
-      search: 'web de autor novela landing de novela kdp dark academia premium oscuro'
-    },
-    app: {
-      brandName: '404 App Studio',
-      offer: 'Landing premium para presentar una app web, demo, beneficios, capturas y llamada a probarla',
-      audience: 'Usuarios avanzados que buscan herramientas útiles, rápidas y visualmente cuidadas',
-      mainCta: 'Probar la app',
-      tone: 'Futurista limpio',
-      intensity: 8,
-      search: 'saas app dashboard ia landing producto digital demo'
-    },
-    producto: {
-      brandName: 'Marca Premium',
-      offer: 'Página de venta elegante para un producto diferenciado con prueba social y propuesta clara',
-      audience: 'Compradores exigentes que valoran diseño, confianza y una decisión fácil',
-      mainCta: 'Comprar ahora',
-      tone: 'Premium oscuro',
-      intensity: 8,
-      search: 'producto fisico tienda boutique luxury brand ecommerce premium'
-    },
-    servicio: {
-      brandName: 'Estudio Profesional',
-      offer: 'Web de servicios premium para captar clientes, explicar proceso, mostrar casos y cerrar contactos',
-      audience: 'Empresas, creadores y profesionales que necesitan una solución seria y rápida',
-      mainCta: 'Solicitar propuesta',
-      tone: 'Corporativo elite',
-      intensity: 7,
-      search: 'agencia digital consultoria portfolio creativo corporate saas'
-    }
+  /* El tema del estudio y el diseño exportado son sistemas separados.
+     Los temas proceden del U404 Style Kit; las SKINS de abajo pertenecen
+     exclusivamente a la web que el usuario está construyendo. */
+  const APP_THEMES = {
+    santuario: { bg:'#0F141F', bg2:'#161D2C', text:'#EDE7DA', brand:'#D8A85F', brand2:'#8FA68E', btn:'#1C1508' },
+    bosque:    { bg:'#0E1512', bg2:'#15211B', text:'#E4EDE2', brand:'#A4C89A', brand2:'#D8C08A', btn:'#101A0D' },
+    oceano:    { bg:'#0A131C', bg2:'#0F1E2C', text:'#E0EBF2', brand:'#8FC3D9', brand2:'#C9B98A', btn:'#0A1820' },
+    luna:      { bg:'#111318', bg2:'#1A1D25', text:'#E8EAF0', brand:'#C7CCDE', brand2:'#9BA6C4', btn:'#14161D' },
+    aurora:    { bg:'#0D1220', bg2:'#131B30', text:'#E3F0EC', brand:'#8FD9C0', brand2:'#B79BE0', btn:'#0B1A15' },
+    niebla:    { bg:'#171A1D', bg2:'#20242A', text:'#E6E9EC', brand:'#B9C4CC', brand2:'#8FA0A8', btn:'#171B1F' },
+    piedra:    { bg:'#15130F', bg2:'#1F1C16', text:'#EAE3D4', brand:'#C7B79A', brand2:'#8FA68E', btn:'#181307' },
+    ambar:     { bg:'#171009', bg2:'#22180D', text:'#F2E6D2', brand:'#E4B36A', brand2:'#C88A5A', btn:'#1D1204' },
+    obsidiana: { bg:'#0A0B0E', bg2:'#111319', text:'#E4E6EE', brand:'#A8B0CE', brand2:'#7C849E', btn:'#0E1016' },
+    oro:       { bg:'#131108', bg2:'#1D1A0E', text:'#F1E9D2', brand:'#E8CB78', brand2:'#B9A25E', btn:'#1B1504' }
   };
+
+  const ARCHITECTURES = [
+    { id:'conversion', name:'Conversión premium', description:'Hero dominante, prueba rápida, beneficios, proceso, FAQ y CTA final.', columns:3, hero:'center', fit:['saas','startup','fintech','producto','marketing'] },
+    { id:'split', name:'Producto en split', description:'Mensaje y CTA a la izquierda con escenario visual o producto a la derecha.', columns:3, hero:'split', fit:['app','software','tecnologia','ia'] },
+    { id:'editorial', name:'Editorial de autor', description:'Ritmo de revista, tipografía protagonista y lectura pausada para obras y autores.', columns:2, hero:'editorial', fit:['autor','libro','editorial','kdp','cultura'] },
+    { id:'portfolio', name:'Portfolio inmersivo', description:'Presentación personal y mosaico de proyectos con foco visual.', columns:2, hero:'minimal', fit:['portfolio','fotografia','arte','arquitectura','creativo'] },
+    { id:'dashboard', name:'Dashboard de producto', description:'Barra lateral, métricas y módulos para herramientas y paneles profesionales.', columns:3, hero:'dashboard', fit:['dashboard','analitica','admin','finanzas'] },
+    { id:'catalog', name:'Catálogo comercial', description:'Colección de productos o servicios con filtros visuales y llamadas de compra.', columns:4, hero:'compact', fit:['tienda','ecommerce','catalogo','moda'] },
+    { id:'cinematic', name:'Cinematográfica', description:'Hero a pantalla completa y bloques narrativos de alto impacto.', columns:2, hero:'cinematic', fit:['gaming','horror','cine','musica','entretenimiento'] },
+    { id:'magazine', name:'Magazine visual', description:'Historia destacada, contenidos secundarios y jerarquía editorial multicolumna.', columns:3, hero:'magazine', fit:['revista','noticias','blog','media'] },
+    { id:'event', name:'Evento y agenda', description:'Fecha, propuesta, ponentes, programación y registro siempre visibles.', columns:3, hero:'event', fit:['evento','festival','conferencia','curso'] },
+    { id:'hospitality', name:'Hospitality y reservas', description:'Imagen aspiracional, disponibilidad, servicios y confianza para reservar.', columns:3, hero:'hospitality', fit:['hotel','restaurante','viajes','turismo','inmobiliaria'] },
+    { id:'docs', name:'Documentación técnica', description:'Navegación lateral, contenido legible y bloques técnicos escaneables.', columns:1, hero:'docs', fit:['documentacion','developer','api','soporte'] },
+    { id:'community', name:'Comunidad y membresía', description:'Impacto colectivo, actividad, ventajas y acceso a la comunidad.', columns:3, hero:'community', fit:['comunidad','foro','social','membresia'] }
+  ];
 
   const SKIN_CATEGORIES = [
     { id: 'neon',      label: 'Oscuras / neón' },
@@ -203,7 +188,10 @@
     visible: INITIAL_VISIBLE,
     selected: models[0] || null,
     brief: {},
-    skin: DEFAULT_SKIN
+    skin: 'dark',
+    appTheme: 'oro',
+    architecture: 'conversion',
+    sections: []
   };
 
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -215,9 +203,6 @@
     },
     set(key, value) {
       try { window.localStorage.setItem(key, value); } catch { /* storage bloqueado */ }
-    },
-    remove(key) {
-      try { window.localStorage.removeItem(key); } catch { /* storage bloqueado */ }
     }
   };
 
@@ -265,7 +250,6 @@
       auditList:        $('#auditList'),
       blueprintOutput:  $('#blueprintOutput'),
       toast:            $('#toast'),
-      briefForm:        $('#briefForm'),
       brandName:        $('#brandName'),
       offer:            $('#offer'),
       audience:         $('#audience'),
@@ -291,6 +275,17 @@
       skinGallery:      $('#skinGallery'),
       skinChips:        $('#skinChips'),
       skinSearch:       $('#skinSearch'),
+      appTheme:         $('#appTheme'),
+      architectureSelect: $('#architectureSelect'),
+      architectureDescription: $('#architectureDescription'),
+      sectionEditor:    $('#sectionEditor'),
+      sectionCount:     $('#sectionCount'),
+      addSection:       $('#addSection'),
+      saveProject:      $('#saveProject'),
+      importProject:    $('#importProject'),
+      resetProject:     $('#resetProject'),
+      projectFile:      $('#projectFile'),
+      downloadZip:      $('#downloadZip'),
       briefContinue:    $('#briefContinue'),
       briefError:       $('#briefError'),
       catalogContinue:  $('#catalogContinue'),
@@ -332,10 +327,85 @@
     } catch { /* brief antiguo o corrupto */ }
   };
 
-  /* ── SKINS (v2.0) ──────────────────────────────────────────
-     Cada skin fija ~9 propiedades vía CSS custom properties;
-     el resto (líneas, overlays, glows, muted) se deriva solo
-     en styles.css con color-mix(). Ver comentario en :root. */
+  /* ── TEMA DEL ESTUDIO U404 ────────────────────────────── */
+  const applyAppTheme = (id) => {
+    const theme = APP_THEMES[id] || APP_THEMES.oro;
+    state.appTheme = APP_THEMES[id] ? id : 'oro';
+    const root = document.documentElement;
+    root.dataset.u404Skin = state.appTheme;
+    root.style.setProperty('--bg', theme.bg);
+    root.style.setProperty('--bg2', theme.bg2);
+    root.style.setProperty('--text', theme.text);
+    root.style.setProperty('--brand', theme.brand);
+    root.style.setProperty('--brand-2', theme.brand2);
+    root.style.setProperty('--brand-btn-text', theme.btn);
+    root.style.setProperty('--radius', '20px');
+    root.style.setProperty('--font-title', "Georgia, 'Iowan Old Style', 'Times New Roman', serif");
+    root.style.setProperty('--font-body', SANS);
+    root.style.setProperty('--heading-tracking', '-0.045em');
+    root.style.setProperty('--eyebrow-transform', 'uppercase');
+    root.style.setProperty('--eyebrow-tracking', '.22em');
+    root.style.setProperty('color-scheme', 'dark');
+    if (els.appTheme) els.appTheme.value = state.appTheme;
+    safeStorage.set('404-web-architect-app-theme', state.appTheme);
+  };
+
+  /* ── ARQUITECTURAS Y EDITOR DE SECCIONES ─────────────── */
+  const getArchitecture = () => ARCHITECTURES.find((a) => a.id === state.architecture) || ARCHITECTURES[0];
+
+  const recommendArchitecture = (model = state.selected) => {
+    const haystack = normalizeText(`${model?.category || ''} ${model?.title || ''} ${model?.purpose || ''}`);
+    return ARCHITECTURES.find((arch) => arch.fit.some((term) => haystack.includes(normalizeText(term)))) || ARCHITECTURES[0];
+  };
+
+  const makeSection = (title, index = 0) => ({
+    id: `sec-${Date.now()}-${index}-${Math.random().toString(36).slice(2, 7)}`,
+    title: String(title || `Sección ${index + 1}`).slice(0, 80),
+    enabled: true
+  });
+
+  const resetSectionsFromModel = (model = state.selected) => {
+    state.sections = (Array.isArray(model?.sections) ? model.sections : ['Beneficios', 'Proceso', 'FAQ', 'Contacto'])
+      .map((title, index) => makeSection(title, index));
+  };
+
+  const getActiveSections = () => state.sections.filter((section) => section.enabled && section.title.trim());
+
+  const fillArchitectures = () => {
+    if (!els.architectureSelect) return;
+    els.architectureSelect.innerHTML = ARCHITECTURES.map((arch) =>
+      `<option value="${arch.id}">${escapeHtml(arch.name)}</option>`
+    ).join('');
+  };
+
+  const renderSectionEditor = () => {
+    if (!els.sectionEditor) return;
+    const active = getActiveSections().length;
+    els.sectionCount.textContent = `${active} ${active === 1 ? 'sección activa' : 'secciones activas'}`;
+    els.sectionEditor.innerHTML = state.sections.map((section, index) => `
+      <div class="section-editor-row" data-section-id="${escapeHtml(section.id)}">
+        <span class="section-handle" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
+        <input class="section-title-input" type="text" maxlength="80" value="${escapeHtml(section.title)}" aria-label="Nombre de la sección ${index + 1}">
+        <label class="visibility-toggle" title="Mostrar u ocultar sección">
+          <input class="section-enabled" type="checkbox" ${section.enabled ? 'checked' : ''}>
+          <span>${section.enabled ? 'Visible' : 'Oculta'}</span>
+        </label>
+        <div class="section-row-actions">
+          <button type="button" data-action="up" aria-label="Subir sección" ${index === 0 ? 'disabled' : ''}>↑</button>
+          <button type="button" data-action="down" aria-label="Bajar sección" ${index === state.sections.length - 1 ? 'disabled' : ''}>↓</button>
+          <button type="button" data-action="delete" aria-label="Eliminar sección">×</button>
+        </div>
+      </div>`).join('') || '<p class="empty">No hay secciones. Añade una para construir la página.</p>';
+  };
+
+  const renderArchitectureControls = () => {
+    const arch = getArchitecture();
+    if (els.architectureSelect) els.architectureSelect.value = arch.id;
+    if (els.architectureDescription) els.architectureDescription.textContent = arch.description;
+    renderSectionEditor();
+  };
+
+  /* ── SKINS DE LA WEB GENERADA ───────────────────────────── */
   const skinState = { query: '', category: '' };
 
   const findSkin = (id) => SKINS.find((s) => s.id === id) || SKINS[0];
@@ -343,24 +413,10 @@
   const applySkin = (id) => {
     const skin = findSkin(id);
     state.skin = skin.id;
-    const root = document.documentElement.style;
-    root.setProperty('--bg', skin.bg);
-    root.setProperty('--bg2', skin.bg2);
-    root.setProperty('--text', skin.text);
-    root.setProperty('--brand', skin.brand);
-    root.setProperty('--brand-2', skin.brand2);
-    root.setProperty('--brand-btn-text', skin.btnText);
-    root.setProperty('--radius', `${skin.radius}px`);
-    root.setProperty('--font-title', skin.fontTitle);
-    root.setProperty('--font-body', skin.fontBody);
-    root.setProperty('--heading-tracking', skin.heading || '-0.06em');
-    root.setProperty('--eyebrow-transform', skin.eyebrow?.transform || 'uppercase');
-    root.setProperty('--eyebrow-tracking', skin.eyebrow?.tracking || '.14em');
     document.documentElement.setAttribute('data-skin', skin.id);
-    document.documentElement.setAttribute('data-mode', skin.mode);
-    document.documentElement.style.setProperty('color-scheme', skin.mode);
     safeStorage.set('404-web-architect-skin', skin.id);
     renderSkinGallery();
+    if (els.sitePreview && state.selected) renderSelected();
   };
 
   const getFilteredSkins = () => {
@@ -474,57 +530,16 @@
     }
   };
 
-  const scoreModelAgainstText = (model, text) => {
-    const terms = normalizeText(text)
-      .split(/[^a-z0-9]+/)
-      .filter((w) => w.length > 2 && !STOPWORDS.has(w));
-    const hay = normalizeText([
-      model.title, model.category, model.style, model.layout,
-      model.purpose, model.vibe, model.audience,
-      ...(Array.isArray(model.tags) ? model.tags : [])
-    ].join(' '));
-    const matches = terms.reduce((acc, term) => acc + (hay.includes(term) ? 1 : 0), 0);
-    return matches * 1000 + Number(model.score || 0);
-  };
 
-  const bestModelForText = (text) => models
-    .slice()
-    .sort((a, b) => scoreModelAgainstText(b, text) - scoreModelAgainstText(a, text))[0];
-
-  const applyQuickPreset = (presetId) => {
-    const preset = QUICK_PRESETS[presetId];
-    if (!preset) return;
-    ['brandName', 'offer', 'audience', 'mainCta', 'tone', 'intensity'].forEach((key) => {
-      if (els[key] && preset[key] !== undefined) els[key].value = preset[key];
-    });
-    if (els.intensityVal) els.intensityVal.value = preset.intensity;
-    saveBrief();
-    const best = bestModelForText(preset.search);
-    if (best) state.selected = best;
-    if (best) safeStorage.set('404-web-architect-selected', best.id);
-    state.query = '';
-    state.category = '';
-    state.style = '';
-    state.visible = INITIAL_VISIBLE;
-    if (els.searchInput) els.searchInput.value = '';
-    if (els.categoryFilter) els.categoryFilter.value = '';
-    if (els.styleFilter) els.styleFilter.value = '';
-    renderGrid();
-    renderSelected();
-    renderRecommended();
-    unlockStep(2);
-    toast(`Modo aplicado: ${preset.brandName}. Ya tienes modelo recomendado.`);
-  };
-
-
-  const cardTemplate = (model) => {
+  const cardTemplate = (model, index = 0) => {
     const color = safeColor(model.palette?.[2]);
     const isSel = state.selected?.id === model.id;
+    const stagger = Math.min(Number(index) || 0, 12);
     return `
       <button class="model-card${isSel ? ' selected' : ''}" type="button"
         data-id="${escapeHtml(model.id)}"
         aria-pressed="${isSel}"
-        style="--c1:${color}22">
+        style="--c1:${color}22;--i:${stagger}">
         <span class="badge score-badge">${escapeHtml(String(model.score))}/100</span>
         <h3>${escapeHtml(model.title)}</h3>
         <p>${escapeHtml(model.purpose)}</p>
@@ -576,7 +591,7 @@
 
   /* ── BLUEPRINT ──────────────────────────────────────────── */
   const buildBlueprintData = (model, brief) => {
-    const topSections = model.sections.slice(0, 8);
+    const topSections = (getActiveSections().length ? getActiveSections().map((section) => section.title) : model.sections).slice(0, 12);
     const normCat = normalizeText(model.category);
     const isAutor  = normCat.includes('autor') || normCat.includes('novela') || normCat.includes('kdp');
     const isSaaS   = normCat.includes('saas') || normCat.includes('dashboard') || normCat.includes('ia');
@@ -665,47 +680,87 @@
 
   /* ── AUDIT ──────────────────────────────────────────────── */
   const renderAudit = (model, brief) => {
-    // FIX: puntuación real basada en score del modelo sin clamp artificial
-    const base = model.score / 10;
-    const intensityBonus = brief.intensity >= 7 ? 0.1 : 0;
-    const grade = Math.min(10, base + intensityBonus).toFixed(1);
-    els.auditGrade.textContent = `${grade}/10`;
-
-    const audits = [
-      ['Arquitectura',    'Hero, prueba, beneficios, objeciones, FAQ y CTA final. Correcta para conversión.'],
-      ['UX móvil',        'Diseño mobile-first, botones grandes, grid fluido, preview móvil y controles táctiles claros.'],
-      ['Accesibilidad',   'HTML semántico, foco visible, contraste alto, skip link, estados aria y textos de CTA claros.'],
-      ['Seguridad',       'Sin dependencias externas, salida escapada, colores saneados y CSP defensiva en index.html.'],
-      ['Rendimiento',     'Proyecto estático ligero, datos locales y sin llamadas a red.'],
-      ['GitHub',          'Compatible con GitHub Pages: publicación directa desde la interfaz web, sin Actions ni dependencias.'],
-      ['Riesgo pendiente','El modelo no sustituye test humano real ni copy final específico de marca.']
+    const html = buildExportHtml();
+    const sections = getActiveSections();
+    const palette = getOutputPalette();
+    const contrast = contrastRatio(palette[0], palette[3]);
+    const checks = [
+      ['Arquitectura', sections.length >= 4, `${getArchitecture().name}: ${sections.length} secciones activas y jerarquía diferenciada.`],
+      ['Contenido', brief.brandName.length >= 3 && brief.offer.length >= 20, 'Marca, propuesta, público y CTA tienen contenido suficiente.'],
+      ['Accesibilidad', html.includes('<h1>') && html.includes('aria-label=') && contrast >= 4.5, `HTML semántico y contraste estimado ${contrast.toFixed(1)}:1.`],
+      ['UX móvil', html.includes('@media(max-width:760px)'), 'Grid, navegación y hero incluyen adaptación a móvil.'],
+      ['Seguridad', !/<script[^>]*src=/i.test(html) && !/javascript:/i.test(html), 'Salida autónoma, escapada y sin scripts ni llamadas externas.'],
+      ['SEO', html.includes('<meta name="description"') && html.includes('<title>'), 'Título, descripción, idioma y viewport presentes.'],
+      ['GitHub Pages', html.startsWith('<!doctype html>'), 'Documento estático válido y exportación ZIP con README y proyecto fuente.']
     ];
-    els.auditList.innerHTML = audits.map(([title, text], i) => `
-      <article class="audit-item">
+    const passed = checks.filter(([, ok]) => ok).length;
+    const grade = (7.5 + (passed / checks.length) * 2.5).toFixed(1);
+    els.auditGrade.textContent = `${grade}/10`;
+    const score100 = Math.round(Number(grade) * 10);
+    els.heroScore.textContent = String(score100);
+    els.heroScore.style.setProperty('--score', String(score100));
+    els.auditList.innerHTML = checks.map(([title, ok, text]) => `
+      <article class="audit-item ${ok ? 'audit-ok' : 'audit-warning'}">
         <span class="audit-dot" aria-hidden="true"></span>
         <div><strong>${escapeHtml(title)}</strong><p>${escapeHtml(text)}</p></div>
-        <span class="badge">${i === audits.length - 1 ? 'vigilar' : 'ok'}</span>
+        <span class="badge">${ok ? 'ok' : 'mejorar'}</span>
       </article>`).join('');
   };
 
+  const hexToRgb = (hex) => {
+    const clean = safeColor(hex).slice(1);
+    return [0, 2, 4].map((i) => parseInt(clean.slice(i, i + 2), 16));
+  };
+
+  const contrastRatio = (a, b) => {
+    const luminance = (hex) => {
+      const rgb = hexToRgb(hex).map((v) => {
+        const c = v / 255;
+        return c <= .03928 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4;
+      });
+      return .2126 * rgb[0] + .7152 * rgb[1] + .0722 * rgb[2];
+    };
+    const [high, low] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+    return (high + .05) / (low + .05);
+  };
+
+  const getOutputPalette = () => {
+    const skin = findSkin(state.skin);
+    return [skin.bg, skin.bg2, skin.brand, skin.text].map((c, i) => safeColor(c, DEFAULT_PALETTE[i]));
+  };
+
+  const architectureVisual = (arch) => {
+    const labels = {
+      dashboard:'Datos en tiempo real', catalog:'Colección destacada', event:'Próxima sesión · 20:00',
+      hospitality:'Disponibilidad inmediata', docs:'Guía de inicio', community:'12.4K miembros',
+      editorial:'Edición seleccionada', portfolio:'Proyecto destacado', cinematic:'Una experiencia inmersiva',
+      magazine:'Historia principal', split:'Vista del producto', conversion:'Resultado medible'
+    };
+    return `<aside class="site-visual" aria-label="${escapeHtml(labels[arch.id] || 'Vista destacada')}">
+      <span class="visual-kicker">${escapeHtml(arch.name)}</span>
+      <strong>${escapeHtml(labels[arch.id] || 'Vista destacada')}</strong>
+      <div class="visual-lines"><i></i><i></i><i></i></div>
+    </aside>`;
+  };
+
   /* ── RENDER SELECTED ────────────────────────────────────── */
-  const renderSelected = () => {
+  const renderSelected = (syncControls = true) => {
     const model = state.selected;
     if (!model) return;
     const brief = getBrief();
     state.brief = brief;
     saveBrief();
 
-    const palette = (Array.isArray(model.palette) ? model.palette : DEFAULT_PALETTE)
-      .map((c, i) => safeColor(c, DEFAULT_PALETTE[i]));
+    const palette = getOutputPalette();
+    const arch = getArchitecture();
+    const sections = getActiveSections();
 
-    els.heroScore.textContent = String(model.score);
     els.selectedSummary.innerHTML = `
       <h3>${escapeHtml(model.title)}</h3>
       <p><strong>Objetivo:</strong> ${escapeHtml(model.purpose)}</p>
-      <p><strong>Firma visual:</strong> ${escapeHtml(model.signature)}</p>
+      <p><strong>Arquitectura:</strong> ${escapeHtml(arch.name)} · <strong>Skin:</strong> ${escapeHtml(findSkin(state.skin).name)}</p>
       <div class="meta-row">
-        ${model.sections.slice(0, 6).map((s) => `<span class="badge">${escapeHtml(s)}</span>`).join('')}
+        ${sections.slice(0, 6).map((s) => `<span class="badge">${escapeHtml(s.title)}</span>`).join('')}
       </div>`;
 
     els.sitePreview.style.setProperty('--preview-bg',   palette[0]);
@@ -713,24 +768,30 @@
     els.sitePreview.style.setProperty('--accent',       palette[2]);
     els.sitePreview.style.setProperty('--accent-soft',  withAlpha(palette[2], '33'));
 
+    els.sitePreview.className = `site-preview arch-${arch.id}`;
     els.sitePreview.innerHTML = `
       <section class="site-hero">
         <nav class="site-nav" aria-label="Preview navegación">
           <span class="site-logo">${escapeHtml(brief.brandName)}</span>
           <span class="site-nav-links">
-            <span>Modelo</span><span>Beneficios</span><span>Proceso</span><span>Contacto</span>
+            ${sections.slice(0, 3).map((section) => `<span>${escapeHtml(section.title)}</span>`).join('')}<span>Contacto</span>
           </span>
         </nav>
-        <p class="eyebrow">${escapeHtml(model.category)} · ${escapeHtml(model.style)}</p>
-        <h2>${escapeHtml(buildHeadline(model, brief))}</h2>
-        <p>${escapeHtml(previewCopy(model, brief))}</p>
-        <a href="#contacto-preview" class="site-cta">${escapeHtml(brief.mainCta || model.cta)}</a>
+        <div class="site-hero-grid">
+          <div class="site-hero-copy">
+            <p class="eyebrow">${escapeHtml(model.category)} · ${escapeHtml(model.style)}</p>
+            <h2>${escapeHtml(buildHeadline(model, brief))}</h2>
+            <p>${escapeHtml(previewCopy(model, brief))}</p>
+            <a href="#contacto-preview" class="site-cta">${escapeHtml(brief.mainCta || model.cta)}</a>
+          </div>
+          ${architectureVisual(arch)}
+        </div>
       </section>
       <section class="site-sections" aria-label="Secciones propuestas">
-        ${model.sections.slice(0, 6).map((sec, i) => `
+        ${sections.map((sec, i) => `
           <article class="site-section-card">
-            <strong>${String(i + 1).padStart(2, '0')} · ${escapeHtml(sec)}</strong>
-            <span>${escapeHtml(sectionDescription(sec, model, brief))}</span>
+            <strong>${String(i + 1).padStart(2, '0')} · ${escapeHtml(sec.title)}</strong>
+            <span>${escapeHtml(sectionDescription(sec.title, model, brief))}</span>
           </article>`).join('')}
       </section>
       <footer class="site-footer" id="contacto-preview">
@@ -740,33 +801,45 @@
 
     renderBlueprint(model, brief);
     renderAudit(model, brief);
+    if (syncControls) renderArchitectureControls();
     renderGrid();
   };
 
   /* ── EXPORT HTML ────────────────────────────────────────── */
+  const buildExportBody = (arch, model, brief, cards, proofItems) => {
+    const nav = `<header class="wrap nav"><strong class="logo">${escapeHtml(brief.brandName)}</strong><nav aria-label="Principal"><a href="#contenido">Explorar</a><a href="#contacto">Contacto</a></nav></header>`;
+    const hero = `<section class="hero wrap"><div class="hero-copy"><p class="eyebrow">${escapeHtml(arch.name)} · ${escapeHtml(model.style)}</p><h1>${escapeHtml(buildHeadline(model, brief))}</h1><p>${escapeHtml(previewCopy(model, brief))}</p><a class="cta" href="#contacto">${escapeHtml(brief.mainCta || model.cta)}</a></div><aside class="hero-art" aria-label="Escenario visual"><span>${escapeHtml(model.category)}</span><strong>${escapeHtml(model.signature)}</strong><i></i><i></i><i></i></aside></section>`;
+    const proof = `<section class="wrap proof" aria-label="Indicadores clave">${proofItems}</section>`;
+    const grid = `<section class="wrap grid" id="contenido" aria-label="Secciones de la página">${cards}</section>`;
+
+    if (arch.id === 'dashboard') return `${nav}<main class="dashboard-shell"><aside class="side-nav" aria-label="Módulos"><strong>Control Center</strong><span>Resumen</span><span>Actividad</span><span>Informes</span></aside><div>${hero}<section class="wrap metric-grid">${proofItems}</section>${grid}</div></main>`;
+    if (arch.id === 'docs') return `${nav}<main class="wrap docs-shell"><aside class="docs-nav" aria-label="Documentación"><strong>Contenido</strong>${getActiveSections().map((s) => `<span>${escapeHtml(s.title)}</span>`).join('')}</aside><article>${hero}<div id="contenido" class="docs-content">${cards}</div></article></main>`;
+    if (arch.id === 'magazine') return `${nav}<main>${hero}<section class="wrap magazine-lead" id="contenido"><article><p class="eyebrow">Historia destacada</p><h2>${escapeHtml(brief.offer)}</h2><p>${escapeHtml(brief.audience)}</p></article><aside>${proofItems}</aside></section>${grid}</main>`;
+    if (arch.id === 'event') return `${nav}<main>${hero}<section class="wrap action-bar"><strong>Próxima sesión</strong><span>Acceso · Agenda · Ponentes</span><a class="cta" href="#contacto">Reservar plaza</a></section>${grid}${proof}</main>`;
+    if (arch.id === 'hospitality') return `${nav}<main>${hero}<form class="wrap booking-bar" aria-label="Consulta de disponibilidad"><label>Llegada<input type="date"></label><label>Salida<input type="date"></label><label>Personas<select><option>2 personas</option></select></label><button class="cta" type="button">Consultar</button></form>${grid}${proof}</main>`;
+    if (arch.id === 'catalog') return `${nav}<main>${hero}<section class="wrap catalog-tools" aria-label="Filtros"><strong>Colección</strong><span>Destacados</span><span>Novedades</span><span>Selección</span></section>${grid}${proof}</main>`;
+    if (arch.id === 'editorial') return `${nav}<main class="editorial-main">${hero}<section class="wrap editorial-intro" id="contenido"><p class="eyebrow">Edición seleccionada</p><h2>${escapeHtml(brief.offer)}</h2></section>${grid}${proof}</main>`;
+    if (arch.id === 'community') return `${nav}<main>${hero}<section class="wrap community-stats">${proofItems}<span class="pill">Comunidad activa</span></section>${grid}</main>`;
+    if (arch.id === 'portfolio') return `${nav}<main>${hero}<section class="wrap portfolio-grid" id="contenido">${cards}</section>${proof}</main>`;
+    if (arch.id === 'cinematic') return `${nav}<main class="cinematic-main">${hero}<section class="wrap scene-grid" id="contenido">${cards}</section>${proof}</main>`;
+    return `${nav}<main>${hero}${proof}${grid}</main>`;
+  };
+
   const buildExportHtml = () => {
     const model = state.selected;
     if (!model) return '';
     const brief = getBrief();
-    const p = (Array.isArray(model.palette) ? model.palette : DEFAULT_PALETTE)
-      .map((c, i) => safeColor(c, DEFAULT_PALETTE[i]));
+    const p = getOutputPalette();
+    const arch = getArchitecture();
     const bp = buildBlueprintData(model, brief);
-
-    const cards = model.sections.map((sec, i) => `
+    const cards = getActiveSections().map((sec, i) => `
       <article class="card">
         <small>${String(i + 1).padStart(2, '0')}</small>
-        <h3>${escapeHtml(sec)}</h3>
-        <p>${escapeHtml(sectionDescription(sec, model, brief))}</p>
+        <h2>${escapeHtml(sec.title)}</h2>
+        <p>${escapeHtml(sectionDescription(sec.title, model, brief))}</p>
       </article>`).join('\n');
-
-    const proofItems  = bp.kpis.map((k) => `<span class="pill">${escapeHtml(k)}</span>`).join('');
-    const planItems   = bp.productionPlan.slice(0, 4).map((item, i) =>
-      `<li><strong>${String(i + 1).padStart(2, '0')}</strong><span>${escapeHtml(item)}</span></li>`).join('');
-    const faqItems = [
-      ['¿Está lista para móvil?',           'Sí. La estructura se plantea mobile-first y con CTA visible en pantallas pequeñas.'],
-      ['¿Se puede publicar en GitHub Pages?','Sí. Es HTML estático sin backend ni dependencias externas.'],
-      ['¿Qué debo personalizar?',           'Marca, imágenes, prueba social real, enlaces finales y métricas de conversión.']
-    ].map(([q, a]) => `<details><summary>${escapeHtml(q)}</summary><p>${escapeHtml(a)}</p></details>`).join('');
+    const proofItems = bp.kpis.map((k) => `<span class="pill">${escapeHtml(k)}</span>`).join('');
+    const body = buildExportBody(arch, model, brief, cards, proofItems);
 
     return `<!doctype html>
 <html lang="es">
@@ -776,28 +849,13 @@
   <meta name="description" content="${escapeHtml(brief.offer)}">
   <title>${escapeHtml(brief.brandName)} · ${escapeHtml(model.category)}</title>
   <style>
-    :root{--bg:${p[0]};--panel:${p[1]};--accent:${p[2]};--text:${p[3]};--muted:rgba(255,255,255,.72);--line:rgba(255,255,255,.14)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 85% 0,color-mix(in srgb,var(--accent),transparent 84%),transparent 34%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.02em}a{color:inherit}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}.nav{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:24px 0}.logo{font-weight:950}.nav span:last-child{color:var(--muted)}.hero{padding:72px 0 48px}.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;font-weight:850}.hero h1{max-width:980px;font-size:clamp(3rem,9vw,7rem);line-height:.88;letter-spacing:-.08em;margin:12px 0 20px}.hero p,.section-intro{max-width:720px;color:var(--muted);font-size:1.15rem;line-height:1.7}.cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;margin-top:18px;padding:0 22px;border-radius:999px;background:var(--accent);color:#07100d;text-decoration:none;font-weight:900}.proof{display:flex;flex-wrap:wrap;gap:10px;padding:8px 0 30px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:22px 0 46px}.card,.process,.faq details{border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:24px;padding:22px}.card{min-height:190px}.card small{color:var(--accent);font-weight:900}.card h3{font-size:1.25rem}.card p{color:var(--muted);line-height:1.6}.process{margin-bottom:18px}.process ol{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0;margin:0;list-style:none}.process li{display:grid;grid-template-columns:auto 1fr;gap:10px;color:var(--muted);line-height:1.5}.process strong{color:var(--accent)}.faq{display:grid;gap:10px;margin:18px 0 54px}.faq summary{cursor:pointer;font-weight:850}.faq p{color:var(--muted);line-height:1.6}.footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);display:flex;justify-content:space-between;gap:18px}.pill{border:1px solid var(--line);border-radius:999px;padding:.5rem .8rem}@media(max-width:760px){.nav,.footer{align-items:flex-start;flex-direction:column}.grid,.process ol{grid-template-columns:1fr}.hero{padding:44px 0 32px}.hero h1{font-size:clamp(2.7rem,15vw,4.8rem)}}
+    :root{--bg:${p[0]};--panel:${p[1]};--accent:${p[2]};--text:${p[3]};--muted:color-mix(in srgb,var(--text),transparent 32%);--line:color-mix(in srgb,var(--text),transparent 86%);--cols:${arch.columns}}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 85% 0,color-mix(in srgb,var(--accent),transparent 84%),transparent 34%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.02em}a{color:inherit}.wrap{width:min(1160px,calc(100% - 32px));margin-inline:auto}.nav{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0}.nav nav{display:flex;gap:18px}.nav a{text-decoration:none;color:var(--muted)}.logo{font-weight:950}.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:clamp(24px,6vw,80px);align-items:center;padding:clamp(70px,10vw,140px) 0 70px}.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:850}.hero h1{max-width:900px;font-size:clamp(3rem,8vw,7rem);line-height:.9;letter-spacing:-.07em;margin:12px 0 20px}.hero p{max-width:680px;color:var(--muted);font-size:1.15rem;line-height:1.7}.hero-art{min-height:360px;padding:30px;border:1px solid var(--line);border-radius:34px;background:linear-gradient(150deg,color-mix(in srgb,var(--accent),transparent 82%),var(--panel));display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 40px 100px rgba(0,0,0,.3)}.hero-art span{color:var(--muted)}.hero-art strong{font-size:1.5rem;margin:8px 0 24px}.hero-art i{display:block;height:5px;margin-top:8px;border-radius:8px;background:var(--accent);opacity:.7}.hero-art i:nth-last-child(2){width:72%}.hero-art i:last-child{width:44%}.cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;margin-top:18px;padding:0 22px;border:0;border-radius:999px;background:var(--accent);color:var(--bg);text-decoration:none;font-weight:900}.proof,.community-stats{display:flex;flex-wrap:wrap;gap:10px;padding:10px 0 34px}.pill{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:.6rem .9rem}.grid,.portfolio-grid,.scene-grid{display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:16px;padding:26px 0 70px}.card{min-height:210px;border:1px solid var(--line);background:color-mix(in srgb,var(--text),transparent 95%);border-radius:24px;padding:24px}.card small{color:var(--accent);font-weight:900}.card h2{font-size:1.3rem}.card p{color:var(--muted);line-height:1.65}.footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);display:flex;justify-content:space-between;gap:18px}.side-nav,.docs-nav{border:1px solid var(--line);background:var(--panel);padding:24px;display:grid;align-content:start;gap:14px}.dashboard-shell{display:grid;grid-template-columns:220px 1fr;max-width:1440px;margin:auto}.dashboard-shell .hero{padding-top:46px}.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.docs-shell{display:grid;grid-template-columns:240px 1fr;gap:38px}.docs-nav{position:sticky;top:16px;height:max-content;border-radius:20px}.docs-content{display:grid;gap:14px;padding-bottom:70px}.docs-content .card{min-height:0}.magazine-lead,.editorial-intro{display:grid;grid-template-columns:1.5fr .5fr;gap:30px;padding:38px 0;border-block:1px solid var(--line)}.action-bar,.booking-bar,.catalog-tools{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:18px 22px;border:1px solid var(--line);border-radius:22px;background:var(--panel)}.action-bar .cta,.booking-bar .cta{margin:0 0 0 auto}.booking-bar label{display:grid;gap:5px;color:var(--muted)}.booking-bar input,.booking-bar select{min-height:42px;padding:0 10px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:10px}.portfolio-grid{grid-template-columns:repeat(2,1fr)}.portfolio-grid .card:nth-child(3n+1){grid-row:span 2;min-height:440px}.cinematic-main .hero{min-height:82vh}.editorial-main{font-family:Georgia,'Times New Roman',serif}body[data-architecture="catalog"] .grid{grid-template-columns:repeat(4,1fr)}body[data-architecture="catalog"] .card{border-radius:8px}body[data-architecture="split"] .hero-art{transform:rotate(2deg)}
+    @media(max-width:760px){.nav,.footer{align-items:flex-start;flex-direction:column}.nav nav{flex-wrap:wrap}.hero{grid-template-columns:1fr;padding:44px 0 32px}.hero h1{font-size:clamp(2.7rem,15vw,4.8rem)}.hero-art{min-height:220px}.grid,.portfolio-grid,.scene-grid,.metric-grid{grid-template-columns:1fr}.portfolio-grid .card:nth-child(3n+1){grid-row:auto;min-height:210px}.dashboard-shell,.docs-shell{grid-template-columns:1fr}.side-nav,.docs-nav{position:static;display:flex;overflow:auto}.magazine-lead,.editorial-intro{grid-template-columns:1fr}.action-bar .cta,.booking-bar .cta{margin-left:0;width:100%}}
   </style>
 </head>
-<body>
-  <header class="wrap nav"><strong class="logo">${escapeHtml(brief.brandName)}</strong><span>${escapeHtml(model.category)} · ${escapeHtml(model.style)}</span></header>
-  <main class="wrap">
-    <section class="hero">
-      <p class="eyebrow">${escapeHtml(model.layout)} · listo para GitHub</p>
-      <h1>${escapeHtml(buildHeadline(model, brief))}</h1>
-      <p>${escapeHtml(previewCopy(model, brief))}</p>
-      <a class="cta" href="#contacto">${escapeHtml(brief.mainCta || model.cta)}</a>
-    </section>
-    <section class="proof" aria-label="Indicadores de conversión sugeridos">${proofItems}</section>
-    <section class="grid" aria-label="Secciones de la página">${cards}</section>
-    <section class="process" aria-labelledby="proceso">
-      <p class="eyebrow" id="proceso">Plan de producción</p>
-      <p class="section-intro">Una hoja de ruta breve para convertir esta landing en una pieza publicable y medible.</p>
-      <ol>${planItems}</ol>
-    </section>
-    <section class="faq" aria-label="Preguntas frecuentes">${faqItems}</section>
-  </main>
+<body data-architecture="${arch.id}">
+  ${body}
   <footer class="wrap footer" id="contacto"><span>${escapeHtml(model.signature)}</span><span class="pill">${escapeHtml(brief.mainCta || model.cta)}</span></footer>
 </body>
 </html>`;
@@ -814,6 +872,127 @@
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
+  };
+
+  const downloadBlob = (filename, blob) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  /* ZIP almacenado (sin compresión) implementado localmente para mantener
+     la app autosuficiente y sin dependencias de producción. */
+  const CRC_TABLE = (() => {
+    const table = new Uint32Array(256);
+    for (let n = 0; n < 256; n += 1) {
+      let c = n;
+      for (let k = 0; k < 8; k += 1) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      table[n] = c >>> 0;
+    }
+    return table;
+  })();
+
+  const crc32 = (bytes) => {
+    let crc = 0xFFFFFFFF;
+    bytes.forEach((byte) => { crc = CRC_TABLE[(crc ^ byte) & 0xFF] ^ (crc >>> 8); });
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  };
+
+  const pushU16 = (target, value) => target.push(value & 255, (value >>> 8) & 255);
+  const pushU32 = (target, value) => target.push(value & 255, (value >>> 8) & 255, (value >>> 16) & 255, (value >>> 24) & 255);
+
+  const createZipBlob = (files) => {
+    const encoder = new TextEncoder();
+    const output = [];
+    const central = [];
+    let offset = 0;
+    Object.entries(files).forEach(([filename, content]) => {
+      const name = encoder.encode(filename);
+      const data = encoder.encode(content);
+      const crc = crc32(data);
+      const local = [];
+      pushU32(local, 0x04034B50); pushU16(local, 20); pushU16(local, 0x0800); pushU16(local, 0);
+      pushU16(local, 0); pushU16(local, 0); pushU32(local, crc); pushU32(local, data.length); pushU32(local, data.length);
+      pushU16(local, name.length); pushU16(local, 0);
+      output.push(...local, ...name, ...data);
+
+      const entry = [];
+      pushU32(entry, 0x02014B50); pushU16(entry, 20); pushU16(entry, 20); pushU16(entry, 0x0800); pushU16(entry, 0);
+      pushU16(entry, 0); pushU16(entry, 0); pushU32(entry, crc); pushU32(entry, data.length); pushU32(entry, data.length);
+      pushU16(entry, name.length); pushU16(entry, 0); pushU16(entry, 0); pushU16(entry, 0); pushU16(entry, 0); pushU32(entry, 0); pushU32(entry, offset);
+      central.push(...entry, ...name);
+      offset += local.length + name.length + data.length;
+    });
+    const centralOffset = output.length;
+    output.push(...central);
+    pushU32(output, 0x06054B50); pushU16(output, 0); pushU16(output, 0);
+    pushU16(output, Object.keys(files).length); pushU16(output, Object.keys(files).length);
+    pushU32(output, central.length); pushU32(output, centralOffset); pushU16(output, 0);
+    return new Blob([new Uint8Array(output)], { type: 'application/zip' });
+  };
+
+  const getProjectData = () => ({
+    schema: 'u404-web-architect-project',
+    version: 3,
+    modelId: state.selected?.id || null,
+    brief: getBrief(),
+    architecture: state.architecture,
+    sections: state.sections.map(({ id, title, enabled }) => ({ id, title, enabled })),
+    outputSkin: state.skin,
+    appTheme: state.appTheme,
+    updatedAt: new Date().toISOString()
+  });
+
+  const applyProjectData = (project) => {
+    if (!project || typeof project !== 'object') throw new Error('Proyecto no válido');
+    const model = models.find((item) => item.id === project.modelId) || state.selected || models[0];
+    state.selected = model;
+    state.architecture = ARCHITECTURES.some((a) => a.id === project.architecture) ? project.architecture : recommendArchitecture(model).id;
+    state.sections = Array.isArray(project.sections)
+      ? project.sections.slice(0, 20).map((section, index) => ({
+          id: String(section.id || `import-${index}`).slice(0, 100),
+          title: String(section.title || `Sección ${index + 1}`).slice(0, 80),
+          enabled: section.enabled !== false
+        }))
+      : [];
+    if (!state.sections.length) resetSectionsFromModel(model);
+    const brief = project.brief && typeof project.brief === 'object' ? project.brief : {};
+    ['brandName', 'offer', 'audience', 'mainCta', 'tone', 'intensity'].forEach((key) => {
+      if (els[key] && brief[key] !== undefined) els[key].value = String(brief[key]).slice(0, 500);
+    });
+    applyAppTheme(APP_THEMES[project.appTheme] ? project.appTheme : state.appTheme);
+    state.skin = SKINS.some((skin) => skin.id === project.outputSkin) ? project.outputSkin : state.skin;
+    document.documentElement.dataset.skin = state.skin;
+    if (els.intensityVal) els.intensityVal.value = els.intensity.value;
+    renderSelected();
+    renderRecommended();
+  };
+
+  const saveProjectLocal = () => {
+    safeStorage.set('404-web-architect-studio-project', JSON.stringify(getProjectData()));
+    toast('Proyecto guardado en este navegador.');
+  };
+
+  const buildProjectReadme = () => {
+    const brief = getBrief();
+    return `# ${brief.brandName}\n\nWeb generada con 404 Web Architect Studio 3.0.\n\n## Publicar en GitHub Pages\n\n1. Sube index.html a la raíz de un repositorio.\n2. Abre Settings → Pages.\n3. Elige Deploy from a branch, main y /root.\n4. Guarda los cambios.\n\n## Proyecto fuente\n\nEl archivo project.json permite volver a importar la configuración en Web Architect Studio.\n`;
+  };
+
+  const downloadGithubZip = () => {
+    const project = JSON.stringify(getProjectData(), null, 2);
+    const blob = createZipBlob({
+      'index.html': buildExportHtml(),
+      'README.md': buildProjectReadme(),
+      'project.json': project,
+      '.nojekyll': ''
+    });
+    downloadBlob(`${slugify(getBrief().brandName)}-github-pages.zip`, blob);
+    toast('ZIP GitHub Pages descargado.');
   };
 
   const copyText = async (text, label) => {
@@ -860,7 +1039,7 @@
     const qa    = bp.qaChecklist.map((item) => `- [ ] ${item}`).join('\n');
     const kpis  = bp.kpis.map((item) => `- ${item}`).join('\n');
 
-    return `# Kit comercial · ${brief.brandName}\n\n## Modelo elegido\n\n- **Modelo:** ${model.title}\n- **Categoría:** ${model.category}\n- **Estilo:** ${model.style}\n- **Layout:** ${model.layout}\n- **Puntuación:** ${model.score}/100\n\n## Veredicto\n\n${bp.verdict}\n\n## Posicionamiento\n\n${bp.positioning.map((i) => `- ${i}`).join('\n')}\n\n## Copy base\n\n${copy}\n\n## Arquitectura de información\n\n${arch}\n\n## Plan de producción\n\n${plan}\n\n## Checklist QA/release\n\n${qa}\n\n## KPIs recomendados\n\n${kpis}\n\n## Prompt maestro\n\n${buildPrompt()}\n`;
+    return `# Kit comercial · ${brief.brandName}\n\n## Modelo elegido\n\n- **Modelo:** ${model.title}\n- **Categoría:** ${model.category}\n- **Estilo:** ${model.style}\n- **Arquitectura:** ${getArchitecture().name}\n- **Skin:** ${findSkin(state.skin).name}\n- **Puntuación base:** ${model.score}/100\n\n## Veredicto\n\n${bp.verdict}\n\n## Posicionamiento\n\n${bp.positioning.map((i) => `- ${i}`).join('\n')}\n\n## Copy base\n\n${copy}\n\n## Arquitectura de información\n\n${arch}\n\n## Plan de producción\n\n${plan}\n\n## Checklist QA/release\n\n${qa}\n\n## KPIs recomendados\n\n${kpis}\n\n## Prompt maestro\n\n${buildPrompt()}\n`;
   };
 
   /* ── SELECT MODEL ───────────────────────────────────────── */
@@ -868,10 +1047,10 @@
     const found = models.find((m) => m.id === id);
     if (!found) return;
     state.selected = found;
+    state.architecture = recommendArchitecture(found).id;
+    resetSectionsFromModel(found);
     safeStorage.set('404-web-architect-selected', found.id);
     renderSelected();
-    renderGrid();
-    renderRecommended();
     toast(`Modelo seleccionado: ${found.title}`);
   };
 
@@ -886,7 +1065,7 @@
     els.mobilePreview.setAttribute('aria-pressed',  String(isMobile));
   };
 
-  /* ── STEPPER (v2.0) ──────────────────────────────────────
+  /* ── STEPPER GUIADO ──────────────────────────────────────
      Navegación guiada por hash (#paso-1..#paso-5). El progreso
      máximo alcanzado se guarda en localStorage; solo se puede
      navegar hacia pasos ya completados, nunca saltar adelante. */
@@ -916,7 +1095,7 @@
     els.stepper.innerHTML = STEPS.map((s) => {
       const st = s.id === stepState.current ? 'current' : s.id <= stepState.maxReached ? 'done' : 'locked';
       const mark = st === 'done' ? '<span aria-hidden="true">✓</span> ' : '';
-      return `<button type="button" class="step-pill" data-state="${st}" data-target="${s.id}" role="tab" aria-selected="${s.id === stepState.current}" aria-disabled="${st === 'locked'}">${mark}<span class="step-num">${s.id}.</span> ${escapeHtml(s.label)}</button>`;
+      return `<button type="button" class="step-pill" data-state="${st}" data-target="${s.id}" role="tab" aria-selected="${s.id === stepState.current}">${mark}<span class="step-num">${s.id}.</span> ${escapeHtml(s.label)}</button>`;
     }).join('');
   };
 
@@ -939,23 +1118,8 @@
 
   const goToStep = (n) => {
     if (n < 1 || n > STEPS.length) return;
-    if (n > stepState.maxReached) {
-      toast('Completa los pasos anteriores antes de avanzar.');
-      return;
-    }
+    if (n > stepState.maxReached) return;
     window.location.hash = `paso-${n}`;
-    showStep(n);
-  };
-
-  const showRequestedStep = (requested, notify = false) => {
-    const allowed = requested <= stepState.maxReached ? requested : stepState.maxReached;
-    if (requested !== allowed) {
-      if (notify) toast('Ese paso aún está bloqueado. Completa los pasos anteriores.');
-      if (window.location.hash !== `#paso-${allowed}`) window.location.hash = `paso-${allowed}`;
-      showStep(allowed);
-      return;
-    }
-    showStep(allowed);
   };
 
   const validateBrief = () => {
@@ -966,7 +1130,7 @@
   };
 
   const initStepper = () => {
-    window.addEventListener('hashchange', () => showRequestedStep(stepFromHash(), true));
+    window.addEventListener('hashchange', () => showStep(stepFromHash()));
 
     els.stepper?.addEventListener('click', (e) => {
       const btn = e.target.closest('.step-pill');
@@ -1003,56 +1167,76 @@
     if (window.location.hash !== `#paso-${stepState.current}`) {
       window.location.hash = `paso-${stepState.current}`;
     }
-    showRequestedStep(stepState.current);
-  };
-
-  /* ── RESET / CLEAR FLOW ─────────────────────────────────── */
-  const resetFlow = () => {
-    const hasProgress = stepState.maxReached > 1 || STORAGE_KEYS.some((key) => safeStorage.get(key));
-    if (hasProgress && !window.confirm('¿Quieres borrar el progreso actual y volver al paso 1?')) return;
-
-    STORAGE_KEYS.forEach((key) => safeStorage.remove(key));
-
-    els.briefForm?.reset();
-    state.query = '';
-    state.category = '';
-    state.style = '';
-    state.sort = 'score';
-    state.visible = INITIAL_VISIBLE;
-    state.selected = models[0] || null;
-    state.brief = {};
-    skinState.query = '';
-    skinState.category = '';
-
-    if (els.searchInput) els.searchInput.value = '';
-    if (els.categoryFilter) els.categoryFilter.value = '';
-    if (els.styleFilter) els.styleFilter.value = '';
-    if (els.sortFilter) els.sortFilter.value = 'score';
-    if (els.skinSearch) els.skinSearch.value = '';
-    if (els.intensityVal) els.intensityVal.value = els.intensity?.value || 8;
-    if (els.briefError) els.briefError.classList.remove('visible');
-
-    stepState.current = 1;
-    stepState.maxReached = 1;
-    applySkin(DEFAULT_SKIN);
-    setPreviewMode('desktop');
-    renderGrid();
-    renderSelected();
-    renderRecommended();
-
-    if (window.location.hash !== '#paso-1') window.location.hash = 'paso-1';
-    showStep(1);
-    toast('Progreso limpiado. Vuelves al paso 1.');
+    showStep(stepState.current);
   };
 
   /* ── EVENTS ─────────────────────────────────────────────── */
   const initEvents = () => {
-    document.addEventListener('click', (e) => {
-      const resetBtn = e.target.closest('[data-reset-flow]');
-      if (resetBtn) { resetFlow(); return; }
+    // Tema U404 del estudio (independiente de la skin exportada)
+    els.appTheme?.addEventListener('change', (e) => {
+      applyAppTheme(e.target.value);
+      toast(`Tema del estudio: ${e.target.selectedOptions[0].textContent}`);
+    });
 
-      const presetBtn = e.target.closest('[data-preset]');
-      if (presetBtn) applyQuickPreset(presetBtn.dataset.preset);
+    // Arquitectura y editor visual de secciones
+    els.architectureSelect?.addEventListener('change', (e) => {
+      state.architecture = e.target.value;
+      safeStorage.set('404-web-architect-architecture', state.architecture);
+      renderSelected();
+      toast(`Arquitectura: ${getArchitecture().name}`);
+    });
+    els.addSection?.addEventListener('click', () => {
+      state.sections.push(makeSection('Nueva sección', state.sections.length));
+      renderSelected();
+    });
+    els.sectionEditor?.addEventListener('input', (e) => {
+      const row = e.target.closest('[data-section-id]');
+      const section = state.sections.find((item) => item.id === row?.dataset.sectionId);
+      if (!section) return;
+      if (e.target.matches('.section-title-input')) section.title = e.target.value.slice(0, 80);
+      if (e.target.matches('.section-enabled')) section.enabled = e.target.checked;
+      renderSelected(false);
+      if (e.target.matches('.section-enabled')) renderSectionEditor();
+    });
+    els.sectionEditor?.addEventListener('click', (e) => {
+      const button = e.target.closest('[data-action]');
+      const row = e.target.closest('[data-section-id]');
+      if (!button || !row) return;
+      const index = state.sections.findIndex((item) => item.id === row.dataset.sectionId);
+      if (index < 0) return;
+      if (button.dataset.action === 'delete') state.sections.splice(index, 1);
+      if (button.dataset.action === 'up' && index > 0) [state.sections[index - 1], state.sections[index]] = [state.sections[index], state.sections[index - 1]];
+      if (button.dataset.action === 'down' && index < state.sections.length - 1) [state.sections[index + 1], state.sections[index]] = [state.sections[index], state.sections[index + 1]];
+      renderSelected();
+    });
+
+    // Gestión de proyecto
+    els.saveProject?.addEventListener('click', saveProjectLocal);
+    els.importProject?.addEventListener('click', () => els.projectFile?.click());
+    els.projectFile?.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        const project = JSON.parse(await file.text());
+        applyProjectData(project);
+        saveProjectLocal();
+        toast('Proyecto importado correctamente.');
+      } catch {
+        toast('El archivo no contiene un proyecto válido.');
+      } finally {
+        e.target.value = '';
+      }
+    });
+    els.resetProject?.addEventListener('click', () => {
+      if (!window.confirm('¿Crear un proyecto nuevo y restablecer el editor?')) return;
+      state.selected = models[0];
+      state.architecture = recommendArchitecture(state.selected).id;
+      resetSectionsFromModel(state.selected);
+      safeStorage.set('404-web-architect-studio-project', '');
+      applyAppTheme('oro');
+      applySkin('dark');
+      renderSelected();
+      toast('Proyecto nuevo preparado.');
     });
 
     // Skin gallery (paso 3): clic delegado + búsqueda + filtro por categoría
@@ -1156,13 +1340,9 @@
       downloadText(`${slugify(getBrief().brandName)}-landing.html`, buildExportHtml(), 'text/html;charset=utf-8');
       toast('HTML descargado.');
     });
+    els.downloadZip?.addEventListener('click', downloadGithubZip);
     els.downloadJson.addEventListener('click', () => {
-      const payload = JSON.stringify({
-        model: state.selected,
-        brief: getBrief(),
-        blueprint: buildBlueprintData(state.selected, getBrief()),
-        generatedAt: new Date().toISOString()
-      }, null, 2);
+      const payload = JSON.stringify(getProjectData(), null, 2);
       downloadText(`${slugify(getBrief().brandName)}-modelo.json`, payload, 'application/json;charset=utf-8');
       toast('JSON descargado.');
     });
@@ -1180,19 +1360,90 @@
 
   /* ── RESTORE STATE ──────────────────────────────────────── */
   const restoreState = () => {
+    restoreBrief();
+    try {
+      const studioProject = JSON.parse(safeStorage.get('404-web-architect-studio-project') || 'null');
+      if (studioProject?.schema === 'u404-web-architect-project') {
+        applyProjectData(studioProject);
+        setPreviewMode('desktop');
+        return;
+      }
+    } catch { /* proyecto guardado antiguo o incompleto */ }
+
     const savedId   = safeStorage.get('404-web-architect-selected');
     const savedModel = models.find((m) => m.id === savedId);
     if (savedModel) state.selected = savedModel;
-
+    state.architecture = ARCHITECTURES.some((a) => a.id === safeStorage.get('404-web-architect-architecture'))
+      ? safeStorage.get('404-web-architect-architecture')
+      : recommendArchitecture(state.selected).id;
+    resetSectionsFromModel(state.selected);
+    applyAppTheme(APP_THEMES[safeStorage.get('404-web-architect-app-theme')]
+      ? safeStorage.get('404-web-architect-app-theme')
+      : 'oro');
     const savedSkin = safeStorage.get('404-web-architect-skin');
-    applySkin(SKINS.some((s) => s.id === savedSkin) ? savedSkin : DEFAULT_SKIN);
-
-    restoreBrief();
+    state.skin = SKINS.some((s) => s.id === savedSkin) ? savedSkin : 'dark';
+    document.documentElement.dataset.skin = state.skin;
+    renderSkinGallery();
     if (els.intensityVal) els.intensityVal.value = els.intensity?.value || 8;
     setPreviewMode('desktop');
   };
 
   /* ── INIT ───────────────────────────────────────────────── */
+  /* ── CAPA DE MOVIMIENTO (progressive enhancement) ─────────
+     Todo es opcional y seguro en jsdom: si falta una API o el
+     usuario prefiere menos movimiento, se muestra el estado
+     final sin animar. */
+  const prefersReducedMotion = () => {
+    try { return window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches === true; }
+    catch { return false; }
+  };
+
+  const animateCount = (el, target, duration = 1100) => {
+    if (typeof requestAnimationFrame !== 'function' || prefersReducedMotion()) {
+      el.textContent = String(target);
+      return;
+    }
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = String(Math.round(target * eased));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const initMotion = () => {
+    // Contadores del hero
+    $$('.metrics dt[data-count]').forEach((dt) => {
+      const target = parseInt(dt.dataset.count, 10);
+      if (Number.isFinite(target)) animateCount(dt, target);
+    });
+
+    // Revelado al hacer scroll: solo se activa si existe la API.
+    if (typeof IntersectionObserver === 'function' && !prefersReducedMotion()) {
+      document.documentElement.classList.add('js-anim');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      $$('.panel-head, .recommended-block, .architecture-studio, .preview-shell, .selected-summary, .footer').forEach((node) => {
+        node.classList.add('reveal');
+        observer.observe(node);
+      });
+    }
+
+    // Botones "Volver" del asistente
+    document.addEventListener('click', (event) => {
+      const back = event.target.closest?.('[data-step-back]');
+      if (back) goToStep(Number(back.dataset.stepBack));
+    });
+  };
+
   const init = () => {
     readElements();
     if (!models.length) {
@@ -1200,12 +1451,14 @@
       return;
     }
     fillFilters();
+    fillArchitectures();
     initEvents();
     restoreState();
     renderGrid();
     renderSelected();
     renderRecommended();
     initStepper();
+    initMotion();
   };
 
   document.addEventListener('DOMContentLoaded', init, { once: true });
