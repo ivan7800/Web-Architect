@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 const appUrl = process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:4173/';
 
-/* El flujo v2.0 es un wizard de 5 pasos: cada panel está oculto
+/* El flujo Studio es un wizard de 5 pasos: cada panel está oculto
    (display:none) hasta que el usuario avanza en orden. Estos
    helpers reproducen ese avance antes de interactuar con
    elementos de pasos posteriores. */
@@ -77,6 +77,26 @@ test('la galería de skins filtra por categoría y busca por nombre', async ({ p
   await expect(page.locator('.skin-btn[data-skin="cyberpunk"]')).toHaveClass(/active/);
 });
 
+test('Studio 3.0 separa tema U404, arquitectura y skin de salida', async ({ page }) => {
+  await goToPersonalizar(page);
+  await expect(page.locator('#architectureSelect option')).toHaveCount(12);
+
+  await page.locator('#appTheme').selectOption('obsidiana');
+  await expect(page.locator('html')).toHaveAttribute('data-u404-skin', 'obsidiana');
+
+  await page.locator('#architectureSelect').selectOption('dashboard');
+  await expect(page.locator('#sitePreview')).toHaveClass(/arch-dashboard/);
+
+  const originalSections = await page.locator('#sectionEditor .section-editor-row').count();
+  await page.locator('#addSection').click();
+  await expect(page.locator('#sectionEditor .section-editor-row')).toHaveCount(originalSections + 1);
+
+  await page.locator('#saveProject').click();
+  const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('404-web-architect-studio-project')));
+  expect(saved.version).toBe(3);
+  expect(saved.architecture).toBe('dashboard');
+});
+
 test('modo móvil no provoca scroll horizontal y cambia la preview', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await goToPersonalizar(page);
@@ -94,6 +114,10 @@ test('exporta HTML, JSON y kit Markdown descargables', async ({ page }) => {
   const htmlDownload = page.waitForEvent('download');
   await page.locator('#downloadHtml').click();
   await expect((await htmlDownload).suggestedFilename()).toContain('landing.html');
+
+  const zipDownload = page.waitForEvent('download');
+  await page.locator('#downloadZip').click();
+  await expect((await zipDownload).suggestedFilename()).toContain('github-pages.zip');
 
   const jsonDownload = page.waitForEvent('download');
   await page.locator('#downloadJson').click();

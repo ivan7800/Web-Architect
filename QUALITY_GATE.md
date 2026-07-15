@@ -8,7 +8,11 @@ Checklist mínimo antes de publicar una release:
 - [ ] El contador muestra 1000 modelos.
 - [ ] La búsqueda funciona con y sin tildes.
 - [ ] Se puede seleccionar un modelo y actualizar preview.
-- [ ] Se puede exportar HTML, JSON y kit Markdown.
+- [ ] Las 12 arquitecturas cambian la composición del preview y del HTML.
+- [ ] Secciones: renombrar, ocultar, ordenar, añadir y eliminar.
+- [ ] El tema U404 del estudio no modifica la skin de salida.
+- [ ] Guardar, importar y recuperar un proyecto conserva su estado.
+- [ ] Se puede exportar HTML, JSON, kit Markdown y ZIP GitHub Pages.
 - [ ] El modo móvil de preview funciona.
 
 ## UX móvil
@@ -31,6 +35,7 @@ Checklist mínimo antes de publicar una release:
 - [ ] Sin recursos externos en producción.
 - [ ] HTML dinámico escapado.
 - [ ] Colores saneados antes de usarlos en CSS.
+- [ ] JSON importado limitado y normalizado antes de renderizar.
 
 ## GitHub
 

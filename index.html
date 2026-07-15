@@ -1,65 +1,83 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-u404-skin="oro">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#070A12" />
-  <meta name="description" content="404 Web Architect Pro: generador premium offline de arquitecturas web con presets guiados, 1000 modelos, skins, preview, auditoría y exportación lista para GitHub Pages." />
+  <meta name="description" content="404 Web Architect Studio: constructor visual offline con 1000 presets, arquitecturas reales, editor, auditoría y exportación GitHub Pages." />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
-  <title>404 Web Architect Pro · Premium Builder</title>
+  <title>404 Web Architect Studio 3.1</title>
+  <link rel="stylesheet" href="assets/u404/u404-style-system.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="u404-theme">
   <a class="skip-link" href="#main">Saltar al contenido</a>
   <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-aurora" aria-hidden="true"></div>
   <header class="app-header">
     <nav class="topbar" aria-label="Navegación principal">
-      <div class="brand-block" aria-label="404 Web Architect Pro">
-        <span class="brand-mark">404</span>
+      <div class="brand-block" aria-label="404 Web Architect Studio">
+        <span class="brand-mark" aria-hidden="true">404</span>
         <div>
-          <strong>Web Architect Pro</strong>
-          <small>Premium builder · 1000 modelos · offline · GitHub Pages</small>
+          <strong>Web Architect Studio</strong>
+          <small>Studio 3.1 · offline · GitHub-ready</small>
         </div>
       </div>
       <div class="top-actions">
-        <button class="ghost" data-reset-flow type="button" aria-label="Limpiar progreso y volver al paso 1">Empezar de cero</button>
+        <div class="action-group" role="group" aria-label="Proyecto">
+          <button class="icon-btn" id="saveProject" type="button" title="Guardar proyecto" aria-label="Guardar proyecto">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5V4Z"/><path d="M8 4v5h8V4M8 14h8v6H8v-6Z"/></svg>
+          </button>
+          <button class="icon-btn" id="importProject" type="button" title="Importar proyecto" aria-label="Importar proyecto">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 16v4h16v-4"/></svg>
+          </button>
+          <button class="icon-btn danger-soft" id="resetProject" type="button" title="Nuevo proyecto" aria-label="Nuevo proyecto">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-7-7h14"/></svg>
+          </button>
+        </div>
+        <span class="top-divider" aria-hidden="true"></span>
+        <label class="compact-control" for="appTheme">
+          <span>Tema del estudio</span>
+          <select id="appTheme" aria-label="Tema visual de la aplicación">
+            <option value="oro">Oro</option>
+            <option value="obsidiana">Obsidiana</option>
+            <option value="santuario">Santuario</option>
+            <option value="bosque">Bosque</option>
+            <option value="oceano">Océano</option>
+            <option value="luna">Luna</option>
+            <option value="aurora">Aurora</option>
+            <option value="niebla">Niebla</option>
+            <option value="piedra">Piedra</option>
+            <option value="ambar">Ámbar</option>
+          </select>
+        </label>
+        <span class="top-divider" aria-hidden="true"></span>
         <button class="primary" id="randomBtn" type="button">Modelo aleatorio</button>
+        <input id="projectFile" type="file" accept="application/json,.json" hidden />
       </div>
     </nav>
 
     <section class="hero-shell" id="main">
       <div class="hero-copy">
-        <p class="eyebrow">Constructor premium de arquitectura web</p>
-        <h1>De idea básica a web con pinta de producto serio.</h1>
-        <p class="lead">Elige un modo rápido, recibe modelos recomendados, aplica una skin premium, revisa el preview y exporta una landing HTML limpia. Sin nube, sin dependencias y lista para GitHub Pages.</p>
-        <div class="workflow-strip" aria-label="Flujo de uso rápido">
-          <span>1 · Brief</span>
-          <span>2 · Modelo</span>
-          <span>3 · Skin</span>
-          <span>4 · Export</span>
-        </div>
+        <p class="eyebrow">Constructor visual offline · listo para GitHub Pages</p>
+        <h1>Crea <em>modelos pro</em>, no plantillas.</h1>
+        <p class="lead">Combina 1000 direcciones creativas con 12 arquitecturas reales, edita las secciones, revisa la calidad y descarga un proyecto publicable.</p>
         <div class="hero-actions">
           <button class="primary big" id="generateFromInputs" type="button">Generar web pro</button>
           <button class="ghost big" id="scrollCatalog" type="button">Explorar modelos</button>
         </div>
         <dl class="metrics" aria-label="Resumen de capacidades">
-          <div><dt>1000</dt><dd>modelos</dd></div>
-          <div><dt>50</dt><dd>categorías</dd></div>
-          <div><dt>20</dt><dd>estilos</dd></div>
+          <div><dt data-count="1000">1000</dt><dd>modelos</dd></div>
+          <div><dt data-count="50">50</dt><dd>categorías</dd></div>
+          <div><dt data-count="12">12</dt><dd>arquitecturas</dd></div>
           <div><dt>0</dt><dd>dependencias</dd></div>
         </dl>
       </div>
-      <aside class="hero-card" aria-label="Panel premium de auditoría rápida">
+      <aside class="hero-card" aria-label="Panel de auditoría rápida">
         <span class="pulse"></span>
-        <p class="eyebrow">Panel premium</p>
-        <h2>Auditor local + kit comercial</h2>
-        <p>Evalúa estructura, móvil, accesibilidad, conversión, claridad y preparación GitHub antes de exportar.</p>
+        <h2>Quality Gate local</h2>
+        <p>Comprueba el HTML generado, estructura, contraste, contenido, móvil, accesibilidad y preparación GitHub.</p>
         <div class="score-ring" id="heroScore">98</div>
-        <div class="premium-checks" aria-label="Controles incluidos">
-          <span>✓ Modo fácil</span>
-          <span>✓ Preview móvil</span>
-          <span>✓ Export HTML/JSON/MD</span>
-        </div>
         <small>Puntuación del modelo activo</small>
       </aside>
     </section>
@@ -70,23 +88,10 @@
   <main class="workspace stepper-mode" id="workspace">
     <section class="panel control-panel step-panel" data-step="1" aria-labelledby="controls-title">
       <div class="panel-head">
-        <p class="eyebrow">Paso 1 de 5 · Brief</p>
+        <p class="eyebrow">Plano 01 / 05 · Brief</p>
         <h2 id="controls-title">Cuéntame tu marca</h2>
-        <p class="panel-intro">Completa el brief manualmente o usa un modo rápido. La app elegirá un modelo recomendado y te guiará paso a paso.</p>
+        <p class="panel-intro">Completa estos campos para pasar al catálogo.</p>
       </div>
-      <section class="quickstart-panel" aria-labelledby="quickstart-title">
-        <div>
-          <p class="eyebrow">Modo fácil</p>
-          <h3 id="quickstart-title">No empieces desde cero</h3>
-          <p>Elige un tipo de proyecto y la app rellenará el brief con una dirección premium.</p>
-        </div>
-        <div class="quickstart-grid">
-          <button class="quickstart-card" type="button" data-preset="autor"><strong>Autor / novelas</strong><span>Universo narrativo, Amazon, estética oscura.</span></button>
-          <button class="quickstart-card" type="button" data-preset="app"><strong>App / SaaS</strong><span>Producto digital con demo, beneficios y CTA.</span></button>
-          <button class="quickstart-card" type="button" data-preset="producto"><strong>Producto premium</strong><span>Venta elegante, prueba social y conversión.</span></button>
-          <button class="quickstart-card" type="button" data-preset="servicio"><strong>Servicio profesional</strong><span>Consultoría, agencia o marca personal seria.</span></button>
-        </div>
-      </section>
       <form class="brief-form" id="briefForm" novalidate>
         <label>
           Nombre del proyecto
@@ -136,7 +141,7 @@
     <section class="panel catalog-panel step-panel" data-step="2" id="catalog" aria-labelledby="catalog-title">
       <div class="panel-head catalog-head">
         <div>
-          <p class="eyebrow">Paso 2 de 5 · Catálogo</p>
+          <p class="eyebrow">Plano 02 / 05 · Catálogo</p>
           <h2 id="catalog-title">Elige tu modelo</h2>
         </div>
         <span class="result-count" id="resultCount">1000 resultados</span>
@@ -176,6 +181,7 @@
         <button class="ghost" id="loadMore" type="button">Mostrar más</button>
       </div>
       <div class="step-footer">
+        <button class="ghost step-back" data-step-back="1" type="button"><span aria-hidden="true">←</span> Volver</button>
         <button class="primary" id="catalogContinue" type="button">Continuar a personalizar <span aria-hidden="true">→</span></button>
       </div>
     </section>
@@ -183,8 +189,8 @@
     <section class="panel builder-panel step-panel" data-step="3" aria-labelledby="builder-title">
       <div class="panel-head split-head">
         <div>
-          <p class="eyebrow">Paso 3 de 5 · Personalizar</p>
-          <h2 id="builder-title">Elige una skin y revisa el preview</h2>
+          <p class="eyebrow">Plano 03 / 05 · Personalizar</p>
+        <h2 id="builder-title">Construye la arquitectura y revisa el preview</h2>
         </div>
         <div class="device-switch" role="group" aria-label="Cambiar ancho de preview">
           <button class="chip active" id="desktopPreview" type="button" aria-pressed="true">Desktop</button>
@@ -192,6 +198,35 @@
         </div>
       </div>
 
+      <section class="architecture-studio" aria-labelledby="architecture-title">
+        <div class="architecture-head">
+          <div>
+            <p class="eyebrow">Motor de composición</p>
+            <h3 id="architecture-title">Arquitectura real de la página</h3>
+          </div>
+          <label>
+            Composición
+            <select id="architectureSelect"></select>
+          </label>
+        </div>
+        <p class="panel-intro" id="architectureDescription"></p>
+        <div class="section-editor-head">
+          <div>
+            <strong>Secciones del proyecto</strong>
+            <small id="sectionCount">0 secciones activas</small>
+          </div>
+          <button class="ghost" id="addSection" type="button">+ Añadir sección</button>
+        </div>
+        <div class="section-editor" id="sectionEditor" aria-live="polite"></div>
+      </section>
+
+      <div class="skin-divider">
+        <div>
+          <p class="eyebrow">Diseño de la web exportada</p>
+          <h3>Skin visual</h3>
+        </div>
+        <p>Estas skins afectan al proyecto generado, no al tema del estudio.</p>
+      </div>
       <div class="skin-gallery-controls">
         <input type="search" class="skin-search" id="skinSearch" placeholder="Buscar skin: cyberpunk, editorial, gótico..." aria-label="Buscar skin" />
       </div>
@@ -204,22 +239,24 @@
         <article class="site-preview" id="sitePreview" aria-label="Previsualización de la web generada"></article>
       </div>
       <div class="step-footer">
+        <button class="ghost step-back" data-step-back="2" type="button"><span aria-hidden="true">←</span> Volver</button>
         <button class="primary" id="builderContinue" type="button">Continuar a exportar <span aria-hidden="true">→</span></button>
       </div>
     </section>
 
     <section class="panel product-panel step-panel" data-step="4" aria-labelledby="product-title">
       <div class="panel-head">
-        <p class="eyebrow">Paso 4 de 5 · Exportar</p>
+        <p class="eyebrow">Plano 04 / 05 · Exportar</p>
         <h2 id="product-title">Descarga tu web</h2>
       </div>
       <div class="export-grid">
         <button class="primary" id="downloadHtml" type="button">Descargar HTML</button>
+        <button class="primary" id="downloadZip" type="button">Descargar ZIP GitHub</button>
         <button class="ghost" id="copyHtml" type="button">Copiar HTML</button>
         <button class="ghost" id="downloadJson" type="button">Exportar JSON</button>
       </div>
 
-      <div class="panel-head split-head kit-head">
+      <div class="panel-head split-head" style="margin-top: 28px;">
         <div>
           <p class="eyebrow">Kit comercial</p>
           <h3>Propuesta lista para vender o producir</h3>
@@ -234,6 +271,7 @@
         <button class="ghost" id="copyChecklist" type="button">Copiar checklist QA</button>
       </div>
       <div class="step-footer">
+        <button class="ghost step-back" data-step-back="3" type="button"><span aria-hidden="true">←</span> Volver</button>
         <button class="primary" id="productContinue" type="button">Ver auditoría <span aria-hidden="true">→</span></button>
       </div>
     </section>
@@ -241,14 +279,14 @@
     <section class="panel audit-panel step-panel" data-step="5" aria-labelledby="audit-title">
       <div class="panel-head split-head">
         <div>
-          <p class="eyebrow">QA</p>
+          <p class="eyebrow">Plano 05 / 05 · Auditoría</p>
           <h2 id="audit-title">Informe automático</h2>
         </div>
         <strong class="audit-grade" id="auditGrade">9.8/10</strong>
       </div>
       <div id="auditList" class="audit-list"></div>
-      <div class="step-footer split-actions">
-        <button class="ghost" data-reset-flow type="button">Crear otro proyecto</button>
+      <div class="step-footer">
+        <button class="ghost step-back" data-step-back="4" type="button"><span aria-hidden="true">←</span> Volver</button>
         <button class="primary" id="finishBtn" type="button">Finalizar</button>
       </div>
     </section>

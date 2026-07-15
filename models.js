@@ -1,4 +1,4 @@
-/* 404 Web Architect Pro — 1000 modelos generados localmente */
+/* 404 Web Architect Studio — 1000 direcciones creativas locales */
 window.MODELS_404 = [
   {
     "id": "M0001",

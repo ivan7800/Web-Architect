@@ -1,12 +1,13 @@
 # Security Policy
 
-404 Web Architect Pro es una app estática/offline. No envía datos a servidores, no usa backend y no necesita claves API.
+404 Web Architect Studio es una app estática/offline. No envía datos a servidores, no usa backend y no necesita claves API.
 
 ## Superficie de riesgo
 
 - Datos locales en `models.js`.
 - Inputs del brief renderizados en preview/exportación.
 - Descargas generadas por el navegador.
+- Importación de archivos de proyecto JSON locales.
 
 ## Medidas aplicadas
 
@@ -14,6 +15,8 @@
 - `connect-src 'none'` para evitar llamadas de red desde la app.
 - Escape de HTML para contenido generado.
 - Saneado de colores hexadecimales antes de usarlos como CSS variables.
+- Importación limitada a un esquema de datos, 20 secciones y longitudes controladas.
+- ZIP generado localmente sin ejecutar contenido importado.
 - Sin dependencias externas en producción.
 
 ## Reporte de vulnerabilidades
