@@ -34,11 +34,11 @@ expect(runtime.includes('preview: buildProductionOutput'), 'API pública no expo
 expect(!/https?:\/\/[^'"`\s]+\.js/i.test(runtime), 'production-v4.js contiene dependencia JS externa');
 expect(styles.includes('@media(max-width:620px)'), 'faltan reglas móviles del Production Center');
 expect(styles.includes('prefers-reduced-motion'), 'faltan reglas reduced-motion');
-expect(sw.includes("const CACHE = 'web-architect-studio-v4.1.0'"), 'Service Worker sin cache versionada v4.1.0');
+expect(/const CACHE = 'web-architect-studio-v4\.(?:1|2)\.0'/.test(sw), 'Service Worker sin cache versionada compatible con Production 4.1/Studio 4.2');
 expect(sw.includes('self.skipWaiting()'), 'Service Worker no activa actualización inmediata');
 expect(sw.includes('self.clients.claim()'), 'Service Worker no reclama clientes tras activar');
 expect(manifest.display === 'standalone', 'manifest no es instalable como standalone');
 expect(manifest.start_url === './', 'manifest start_url debe ser relativo para GitHub Pages');
 expect(Array.isArray(manifest.icons) && manifest.icons.length > 0, 'manifest sin iconos');
 
-console.log('✓ Production Architect 4.1: runtime, PWA, Premium Output, export y QA validados');
+console.log('✓ Production Architect 4.1: runtime, PWA, Premium Output, export y QA validados sobre Studio actual');
