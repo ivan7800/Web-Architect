@@ -1,6 +1,6 @@
 # 404 Web Architect Studio 4.2 — Visual Quality & Performance
 
-Constructor visual **offline/local-first** para convertir un brief en una web estática completa, auditable y publicable en GitHub Pages. Combina **1000 direcciones creativas**, **12 arquitecturas reales**, **35 skins**, editor de secciones, preview responsive, Premium Output, Visual DNA y un gate técnico de **28 comprobaciones**.
+Constructor visual **offline/local-first** para convertir un brief en una web estática completa, auditable y publicable en GitHub Pages. Combina **1000 direcciones creativas**, **12 arquitecturas reales**, **35 skins**, editor de secciones, preview responsive, Premium Output, Visual DNA y un Quality Gate técnico de **28 comprobaciones**.
 
 ## Qué aporta Studio 4.2
 
@@ -62,11 +62,11 @@ La arquitectura modifica la estructura HTML. La skin define la identidad cromát
 3. Selecciona arquitectura, secciones y skin.
 4. Revisa el preview desktop/móvil.
 5. Avanza a Auditoría.
-6. Ejecuta **Gate 4.2**.
+6. Ejecuta **Quality Gate 4.2**.
 7. Opcionalmente introduce la URL pública y activa/desactiva PWA.
 8. Descarga **ZIP Production 4.2** y publica en GitHub Pages.
 
-## Gate 4.2 — 28 comprobaciones
+## Quality Gate 4.2 — 28 comprobaciones
 
 Las 16 comprobaciones de Premium Output siguen activas:
 
