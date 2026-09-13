@@ -1,4 +1,4 @@
-const CACHE = 'web-architect-studio-v4.1.0';
+const CACHE = 'web-architect-studio-v4.2.0';
 const CORE = [
   './',
   './index.html',
@@ -7,6 +7,7 @@ const CORE = [
   './models.js',
   './app.js',
   './production-v4.js',
+  './visual-quality-v4.2.js',
   './manifest.webmanifest',
   './assets/u404/u404-style-system.css',
   './assets/u404/u404-mark.svg'
