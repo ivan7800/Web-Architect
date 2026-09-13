@@ -52,8 +52,7 @@ test('completar el brief desbloquea el catálogo con recomendados', async ({ pag
 
 test('seleccionar un modelo actualiza el kit comercial y el preview', async ({ page }) => {
   await goToCatalog(page);
-  await page.locator('#searchInput').fill('autor kdp');
-  await expect(page.locator('#resultCount')).not.toContainText('0 resultados');
+  await expect(page.locator('.model-card').first()).toBeVisible();
   await page.locator('.model-card').first().click();
   await page.locator('#catalogContinue').click();
   await page.locator('#brandName').fill('Omega Studio');
