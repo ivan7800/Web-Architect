@@ -17,8 +17,11 @@ expect(index.includes('production-v4.css'), 'index.html no carga production-v4.c
 expect(index.includes('production-v4.js'), 'index.html no carga production-v4.js');
 expect(index.includes('manifest.webmanifest'), 'index.html no enlaza el manifest');
 expect(index.includes('Studio 4.0'), 'la interfaz no muestra Studio 4.0');
+expect(runtime.includes("const VERSION = '4.0.1'"), 'runtime Production Architect no está en 4.0.1');
 expect(runtime.includes('captureGeneratedHtml'), 'falta captura de la salida HTML real');
 expect(runtime.includes('auditHtml'), 'falta Production Gate');
+expect(runtime.includes('repairInertControls'), 'falta reparación de controles inertes en exportación');
+expect(runtime.includes("schema: 'u404-web-architect-project'"), 'project.json Production no usa schema reimportable');
 expect(runtime.includes('downloadProductionZip'), 'falta exportación ZIP de producción');
 expect(runtime.includes('manifest.webmanifest'), 'la exportación no incluye manifest PWA');
 expect(runtime.includes('QA_REPORT.md'), 'la exportación no incluye informe QA');
@@ -28,11 +31,11 @@ expect(runtime.includes('robots.txt'), 'la exportación no incluye robots.txt');
 expect(!/https?:\/\/[^'"`\s]+\.js/i.test(runtime), 'production-v4.js contiene dependencia JS externa');
 expect(styles.includes('@media(max-width:620px)'), 'faltan reglas móviles del Production Center');
 expect(styles.includes('prefers-reduced-motion'), 'faltan reglas reduced-motion');
-expect(sw.includes("const CACHE = 'web-architect-studio-v4.0.0'"), 'Service Worker sin cache versionada v4');
+expect(sw.includes("const CACHE = 'web-architect-studio-v4.0.1'"), 'Service Worker sin cache versionada v4.0.1');
 expect(sw.includes('self.skipWaiting()'), 'Service Worker no activa actualización inmediata');
 expect(sw.includes('self.clients.claim()'), 'Service Worker no reclama clientes tras activar');
 expect(manifest.display === 'standalone', 'manifest no es instalable como standalone');
 expect(manifest.start_url === './', 'manifest start_url debe ser relativo para GitHub Pages');
 expect(Array.isArray(manifest.icons) && manifest.icons.length > 0, 'manifest sin iconos');
 
-console.log('✓ Production Architect v4: runtime, PWA, export y QA validados');
+console.log('✓ Production Architect v4.0.1: runtime, PWA, export, roundtrip y QA validados');
