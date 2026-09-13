@@ -1,105 +1,120 @@
-# 404 Web Architect Studio 4.1 — Premium Output Engine
+# 404 Web Architect Studio 4.2 — Visual Quality & Performance
 
-Constructor visual offline para convertir un brief en una web estática completa, auditable y publicable. Combina **1000 direcciones creativas**, **12 arquitecturas reales**, **35 skins de salida**, editor de secciones, preview responsive, Quality Gate, **Production Gate** y exportación ZIP para GitHub Pages.
+Constructor visual **offline/local-first** para convertir un brief en una web estática completa, auditable y publicable en GitHub Pages. Combina **1000 direcciones creativas**, **12 arquitecturas reales**, **35 skins**, editor de secciones, preview responsive, Premium Output, Visual DNA y un gate técnico de **28 comprobaciones**.
 
-## Novedades de Studio 4.1
+## Qué aporta Studio 4.2
 
-Studio 4.1 conserva el motor 3.x/4.0 y mejora la **web final que se publica**.
+Studio 4.2 se apoya en la base estable **Premium Output 4.1** y mejora la calidad visual, SEO y rendimiento de la web final exportada.
 
-- **Premium Output Engine**: postprocesa la salida Production antes de auditarla.
-- Navegación móvil accesible con estado `aria-expanded`.
-- Bloques premium adaptados a la arquitectura:
-  - `pricing` para Conversión y Split.
-  - `gallery` para Editorial, Portfolio, Catálogo, Cinematic, Magazine y Hospitality.
-  - `stats` para Dashboard, Evento, Docs y Comunidad.
-- Bloque de confianza derivado del brief, sin inventar cifras ni testimonios.
-- FAQ funcional con `<details>` / `<summary>`.
-- Formulario local-first que valida, guarda un borrador en `localStorage` y lo copia al portapapeles cuando el navegador lo permite. **No envía datos a servidores.**
-- Schema.org JSON-LD (`WebSite` + `Organization`).
-- Production Gate ampliado a **16 comprobaciones** sobre la salida final.
-- API local `WebArchitectProduction.preview()` para QA automatizado.
-- **Matriz E2E sobre las 12 arquitecturas** con Playwright.
-- Studio PWA con caché versionada `v4.1.0`.
-- ZIP Production 4.1 con PWA opcional, sitemap y QA report.
+- **Visual DNA por arquitectura**: cada una de las 12 arquitecturas recibe un perfil visual `conversion`, `editorial`, `immersive`, `system`, `commerce` o `social`.
+- **Hero SVG local y accesible** generado dentro del HTML, sin imágenes, fuentes o librerías externas obligatorias.
+- Jerarquía tipográfica, proporciones, ritmo vertical y composición diferenciados según el tipo de web.
+- **Schema.org enriquecido**: mantiene `WebSite` + `Organization` de 4.1 y añade `WebPage` + `FAQPage` construido desde el FAQ visible.
+- Open Graph/Twitter enriquecidos, `application-name` y `color-scheme`.
+- `content-visibility` para reducir trabajo de render en secciones inferiores.
+- Política `loading="lazy"` + `decoding="async"` para imágenes no prioritarias cuando existen.
+- **Performance Gate** con presupuestos de HTML, CSS y JavaScript y control de assets externos.
+- ZIP Production 4.2 con `VISUAL_DNA.json` y `PERFORMANCE_REPORT.md`.
+- Capa 4.2 aislada en `visual-quality-v4.2.js`; Premium Output 4.1 permanece debajo para reducir regresiones.
 
-La documentación técnica detallada está en [`PREMIUM_OUTPUT_4.1.md`](PREMIUM_OUTPUT_4.1.md).
+Documentación técnica: [`VISUAL_QUALITY_4.2.md`](VISUAL_QUALITY_4.2.md).
 
-## Capacidades heredadas
+## Premium Output heredado de 4.1
 
-- 1000 presets estratégicos.
-- 50 categorías.
-- 12 motores de composición que cambian estructura HTML, no solo colores.
-- 35 skins de salida.
-- 10 temas visuales independientes para el estudio.
-- Editor de secciones: renombrar, ocultar, mostrar, ordenar, añadir y eliminar.
-- Guardado local e importación/exportación JSON.
-- Preview desktop/móvil.
-- Kit comercial y checklist QA.
-- Exportación HTML clásica y ZIP base para GitHub Pages.
-- CSP del Studio y ejecución sin recursos externos de producción.
+La salida 4.2 conserva:
 
-## Arquitecturas incluidas
+- navegación móvil accesible con `aria-expanded`;
+- bloque de confianza derivado del brief;
+- bloque adaptado a arquitectura (`pricing`, `gallery` o `stats`);
+- FAQ funcional con `<details>` / `<summary>`;
+- formulario local-first que valida, guarda un borrador en `localStorage` e intenta copiarlo al portapapeles;
+- cero envío automático de datos a servidores;
+- saneado de IDs duplicados;
+- reparación de controles inertes como el CTA de Hospitality;
+- `project.json` reimportable;
+- PWA opcional, robots, sitemap y fallback `404.html`.
 
-1. Conversión premium.
-2. Producto en split.
-3. Editorial de autor.
-4. Portfolio inmersivo.
-5. Dashboard de producto.
-6. Catálogo comercial.
-7. Cinematográfica.
-8. Magazine visual.
-9. Evento y agenda.
-10. Hospitality y reservas.
-11. Documentación técnica.
-12. Comunidad y membresía.
+Studio **no fabrica testimonios, clientes, cifras ni resultados**. La prueba social real debe proceder de contenido real del proyecto.
 
-El estudio recomienda automáticamente una arquitectura según el modelo seleccionado y permite cambiarla en cualquier momento.
+## Visual DNA de las 12 arquitecturas
+
+| Arquitectura | Perfil 4.2 |
+| --- | --- |
+| Conversión premium | `conversion` |
+| Producto en split | `conversion` |
+| Editorial de autor | `editorial` |
+| Portfolio inmersivo | `immersive` |
+| Dashboard de producto | `system` |
+| Catálogo comercial | `commerce` |
+| Cinematográfica | `immersive` |
+| Magazine visual | `editorial` |
+| Evento y agenda | `social` |
+| Hospitality y reservas | `immersive` |
+| Documentación técnica | `system` |
+| Comunidad y membresía | `social` |
+
+La arquitectura modifica la estructura HTML. La skin define la identidad cromática/tipográfica. El Visual DNA 4.2 añade una tercera capa de dirección visual y composición.
 
 ## Flujo recomendado
 
 1. Completa marca, oferta, público y CTA.
-2. Elige uno de los 1000 modelos o usa las recomendaciones.
-3. Selecciona arquitectura, edita las secciones y elige la skin de salida.
-4. Revisa el preview en escritorio y móvil.
+2. Elige un modelo entre los 1000 presets o usa las recomendaciones.
+3. Selecciona arquitectura, secciones y skin.
+4. Revisa el preview desktop/móvil.
 5. Avanza a Auditoría.
-6. En **Premium Output Engine**, ejecuta **Production Gate**.
+6. Ejecuta **Gate 4.2**.
 7. Opcionalmente introduce la URL pública y activa/desactiva PWA.
-8. Descarga **ZIP Premium 4.1** y publica en GitHub Pages.
+8. Descarga **ZIP Production 4.2** y publica en GitHub Pages.
 
-## Production Gate 4.1
+## Gate 4.2 — 28 comprobaciones
 
-El Production Gate captura la salida HTML, la enriquece y después comprueba:
+Las 16 comprobaciones de Premium Output siguen activas:
 
-- longitud de `title`;
-- longitud de `meta description`;
-- existencia de un único `h1`;
-- atributo `lang`;
-- `viewport`;
-- reglas responsive;
+- `title` y meta description;
+- un único `h1`;
+- `lang` y viewport;
+- CSS responsive;
 - imágenes sin `alt`;
 - enlaces sin `href`;
 - IDs duplicados;
 - scripts externos y handlers inline;
-- Schema.org JSON-LD;
+- Schema.org base;
 - navegación móvil;
-- FAQ funcional;
+- FAQ;
 - formulario local-first;
-- presencia mínima de bloques premium;
+- bloques premium mínimos;
 - ausencia de botones inertes.
 
-La puntuación se guarda en `QA_REPORT.md` dentro del ZIP. El gate reduce errores, pero no sustituye una revisión humana final, pruebas de usabilidad ni validaciones legales del contenido.
+La capa 4.2 añade 12 comprobaciones:
 
-## Exportación Premium 4.1
+1. perfil Visual DNA;
+2. hero SVG local;
+3. composición responsive 4.2;
+4. `WebPage` Schema;
+5. `FAQPage` Schema;
+6. metadata social completa;
+7. cero assets externos de ejecución;
+8. HTML ≤ 180 KB;
+9. CSS inline ≤ 50 KB;
+10. JavaScript inline ≤ 24 KB;
+11. render diferido mediante `content-visibility`;
+12. política lazy/async de imágenes.
 
-Con URL pública y PWA activadas, el paquete puede contener:
+El gate es un preflight técnico: no sustituye revisión humana, validación legal, Lighthouse en producción ni pruebas con usuarios reales.
+
+## ZIP Production 4.2
+
+Con URL pública y PWA activadas:
 
 ```text
-proyecto-production-v4.1.zip
+proyecto-production-v4.2.zip
 ├─ index.html
 ├─ 404.html
 ├─ README.md
 ├─ project.json
+├─ VISUAL_DNA.json
 ├─ QA_REPORT.md
+├─ PERFORMANCE_REPORT.md
 ├─ robots.txt
 ├─ sitemap.xml
 ├─ manifest.webmanifest
@@ -108,35 +123,46 @@ proyecto-production-v4.1.zip
 └─ .nojekyll
 ```
 
-Sin URL pública se omite `sitemap.xml` y no se añade `canonical`. Sin PWA se omiten `manifest.webmanifest`, `sw.js` e `icon.svg`.
+Sin URL pública se omite `sitemap.xml`. Sin PWA se omiten `manifest.webmanifest`, `sw.js` e `icon.svg`.
 
-## Privacidad del formulario local
+## Privacidad y seguridad
 
-El formulario generado no tiene backend ni endpoint remoto. Al enviarlo:
+- Sin backend obligatorio.
+- Sin cuentas.
+- Sin telemetría.
+- Sin dependencias externas de ejecución en la salida 4.2.
+- CSP en el Studio.
+- URL pública limitada a HTTP/HTTPS.
+- Procesado y ZIP completamente en el navegador.
+- El formulario generado es local-first y no hace `fetch` ni `XMLHttpRequest`.
 
-1. valida los campos en el navegador;
-2. compone un borrador de solicitud;
-3. lo guarda localmente en `localStorage`;
-4. intenta copiarlo al portapapeles.
+## Capacidades del Studio
 
-No hace `fetch`, `XMLHttpRequest`, telemetría ni envío automático de datos.
+- 1000 presets estratégicos.
+- 50 categorías.
+- 12 arquitecturas HTML diferenciadas.
+- 35 skins de salida.
+- 10 temas visuales independientes para el Studio.
+- Editor de secciones: renombrar, ocultar, mostrar, ordenar, añadir y eliminar.
+- Guardado local e importación/exportación JSON.
+- Preview desktop/móvil.
+- Kit comercial y checklist QA.
+- Exportación HTML clásica, ZIP base y ZIP Production 4.2.
+- PWA del Studio con caché versionada.
 
-## Testimonios y prueba social
+## Tema, skin y Visual DNA
 
-Studio 4.1 **no fabrica testimonios**. Una cita comercial solo debería publicarse si procede de contenido real aportado por el propietario del proyecto. El motor usa señales de confianza derivadas del brief, pero no inventa personas, empresas, resultados ni métricas.
+Son tres niveles separados:
 
-## Tema del estudio frente a skin de salida
+- **Tema del Studio**: aspecto de la herramienta Web Architect.
+- **Skin de salida**: paleta, tipografía y carácter de la web exportada.
+- **Visual DNA 4.2**: composición, jerarquía y tratamiento visual según arquitectura.
 
-Son sistemas separados deliberadamente:
-
-- **Tema del estudio:** cambia el aspecto de Web Architect Studio.
-- **Skin de salida:** cambia colores, tipografía y carácter de la web exportada.
-
-Así puedes trabajar con U404 Oro y exportar una web Cyberpunk, Editorial, Corporate u otra identidad sin mezclar ambos niveles.
+Esto permite cambiar la herramienta sin contaminar el proyecto y combinar una misma arquitectura con identidades visuales muy distintas.
 
 ## Guardar e importar
 
-El botón **Guardar** conserva el proyecto en `localStorage`. **Exportar JSON** descarga un archivo compatible con **Importar**. El proyecto conserva modelo, brief, arquitectura, secciones, skin y tema del estudio. El ZIP Production añade un `project.json` reimportable con las opciones de producción.
+**Guardar** conserva el proyecto en `localStorage`. **Exportar JSON** descarga el proyecto y **Importar** recupera modelo, brief, arquitectura, secciones, skin y tema. El ZIP Production añade metadata de Premium Output, Visual Quality, perfil y opciones de publicación sin romper el esquema reimportable.
 
 ## Publicar en GitHub Pages
 
@@ -144,42 +170,28 @@ El botón **Guardar** conserva el proyecto en `localStorage`. **Exportar JSON** 
 2. Sube su contenido a la raíz del repositorio de destino.
 3. Ve a **Settings → Pages**.
 4. Selecciona **Deploy from a branch**, rama `main` y `/root`.
-5. Comprueba la URL final en móvil y escritorio.
-6. Si configuraste una URL pública distinta, vuelve a exportar con la URL definitiva para regenerar canonical y sitemap.
+5. Comprueba móvil y escritorio.
+6. Si cambia la URL definitiva, vuelve a exportar para regenerar canonical, robots y sitemap.
 
-## Desarrollo y validación
+## Desarrollo y QA
 
 ```bash
 npm ci
 npm test
-```
-
-`npm test` ejecuta:
-
-- validación de los 1000 modelos;
-- validación estructural y de seguridad del Studio;
-- validación específica de Production Architect;
-- validación específica de Premium Output 4.1;
-- smoke test DOM del flujo 3.x.
-
-Pruebas E2E completas:
-
-```bash
-npx playwright install chromium
 npm run test:e2e
 ```
 
-La suite E2E incluye una matriz que recorre las **12 arquitecturas** y verifica el bloque premium correspondiente, Production Gate, navegación, FAQ y formulario local.
+`npm test` cubre modelos, núcleo, Production 4.1, Premium Output, Visual Quality 4.2 y smoke DOM. Playwright ejecuta los flujos de navegador en **desktop y móvil**, incluida la matriz Premium y la matriz Visual DNA sobre las **12 arquitecturas**.
 
-Prueba total:
+Prueba completa:
 
 ```bash
 npm run test:all
 ```
 
-GitHub Actions ejecuta Chromium en escritorio y móvil en cada `push` relevante y `pull_request` hacia `main`.
+GitHub Actions ejecuta la misma validación en cada `pull_request` hacia `main` y después del merge en `main`.
 
-## Estructura
+## Estructura principal
 
 ```text
 404-web-architect-studio/
@@ -188,32 +200,27 @@ GitHub Actions ejecuta Chromium en escritorio y móvil en cada `push` relevante 
 ├─ production-v4.css
 ├─ app.js
 ├─ production-v4.js
+├─ visual-quality-v4.2.js
 ├─ models.js
 ├─ manifest.webmanifest
 ├─ studio-sw.js
 ├─ assets/u404/
-├─ package.json
-├─ package-lock.json
-├─ README.md
-├─ PREMIUM_OUTPUT_4.1.md
-├─ LICENSE
-├─ SECURITY.md
-├─ CHANGELOG.md
-├─ QUALITY_GATE.md
 ├─ tests/e2e/
 ├─ tools/
+├─ PREMIUM_OUTPUT_4.1.md
+├─ VISUAL_QUALITY_4.2.md
+├─ QUALITY_GATE.md
 └─ .github/workflows/
 ```
 
 ## Límites honestos
 
-- Los 1000 modelos son presets estratégicos; la variedad estructural procede de las 12 arquitecturas.
-- El editor trabaja con bloques y contenido; no es un editor libre de píxeles como Figma.
-- La salida es HTML estático. No crea backend, pagos reales ni autenticación.
-- El formulario local prepara una solicitud; no sustituye un sistema real de captación de leads.
-- Las galerías generadas son composiciones estructurales; para fotografía/producto real hay que aportar imágenes reales.
-- El Production Gate es un preflight técnico local, no un sustituto de Lighthouse, axe, validación HTML completa o pruebas con usuarios reales.
-- La PWA exportada usa una estrategia offline deliberadamente simple y apropiada para proyectos estáticos.
+- Los 1000 modelos son direcciones estratégicas; la diversidad estructural real procede de las 12 arquitecturas.
+- No es un editor libre de píxeles como Figma.
+- La salida es estática: no crea pagos, autenticación o backend real.
+- El formulario local prepara una solicitud; no sustituye un CRM o endpoint de leads.
+- El hero SVG 4.2 aporta identidad visual local, pero una web comercial de fotografía/producto seguirá necesitando material real aportado por el proyecto.
+- Los presupuestos del Performance Gate controlan el HTML exportado, pero el rendimiento final también depende del hosting y de los assets reales que se añadan después.
 
 ## Autor y licencia
 
