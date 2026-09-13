@@ -1,20 +1,28 @@
-# 404 Web Architect Studio 4.0 — Production Architect
+# 404 Web Architect Studio 4.1 — Premium Output Engine
 
-Constructor visual offline para convertir un brief en una web completa, auditable y publicable. Combina **1000 direcciones creativas**, **12 arquitecturas reales**, **35 skins de salida**, editor de secciones, preview responsive, Quality Gate, **Production Gate** y exportación ZIP para GitHub Pages.
+Constructor visual offline para convertir un brief en una web estática completa, auditable y publicable. Combina **1000 direcciones creativas**, **12 arquitecturas reales**, **35 skins de salida**, editor de secciones, preview responsive, Quality Gate, **Production Gate** y exportación ZIP para GitHub Pages.
 
-## Novedades de Studio 4.0
+## Novedades de Studio 4.1
 
-Studio 4.0 conserva el motor 3.1 y añade una capa de producción separada para reducir regresiones.
+Studio 4.1 conserva el motor 3.x/4.0 y mejora la **web final que se publica**.
 
-- **Production Gate** sobre el HTML que genera realmente el estudio, no sobre una maqueta paralela.
-- Auditoría adicional de SEO, semántica, accesibilidad, responsive, IDs, enlaces y seguridad básica.
-- **ZIP Producción** con `index.html`, `404.html`, `project.json`, `QA_REPORT.md`, `robots.txt` y `.nojekyll`.
-- URL pública opcional para generar `canonical`, Open Graph, `sitemap.xml` y referencia de sitemap en `robots.txt`.
-- **PWA/offline opcional** en la exportación: `manifest.webmanifest`, `sw.js` e `icon.svg`.
-- El propio Studio es instalable como PWA mediante `manifest.webmanifest` y `studio-sw.js`.
-- CI real en `.github/workflows/ci.yml`: validación estática + smoke tests + Playwright desktop/móvil.
-- Suite E2E adicional para Production Architect.
-- Runtime v4 aislado en `production-v4.js` y estilos en `production-v4.css` para mantener compatibilidad con el motor 3.x.
+- **Premium Output Engine**: postprocesa la salida Production antes de auditarla.
+- Navegación móvil accesible con estado `aria-expanded`.
+- Bloques premium adaptados a la arquitectura:
+  - `pricing` para Conversión y Split.
+  - `gallery` para Editorial, Portfolio, Catálogo, Cinematic, Magazine y Hospitality.
+  - `stats` para Dashboard, Evento, Docs y Comunidad.
+- Bloque de confianza derivado del brief, sin inventar cifras ni testimonios.
+- FAQ funcional con `<details>` / `<summary>`.
+- Formulario local-first que valida, guarda un borrador en `localStorage` y lo copia al portapapeles cuando el navegador lo permite. **No envía datos a servidores.**
+- Schema.org JSON-LD (`WebSite` + `Organization`).
+- Production Gate ampliado a **16 comprobaciones** sobre la salida final.
+- API local `WebArchitectProduction.preview()` para QA automatizado.
+- **Matriz E2E sobre las 12 arquitecturas** con Playwright.
+- Studio PWA con caché versionada `v4.1.0`.
+- ZIP Production 4.1 con PWA opcional, sitemap y QA report.
+
+La documentación técnica detallada está en [`PREMIUM_OUTPUT_4.1.md`](PREMIUM_OUTPUT_4.1.md).
 
 ## Capacidades heredadas
 
@@ -27,7 +35,7 @@ Studio 4.0 conserva el motor 3.1 y añade una capa de producción separada para 
 - Guardado local e importación/exportación JSON.
 - Preview desktop/móvil.
 - Kit comercial y checklist QA.
-- Exportación HTML y ZIP base para GitHub Pages.
+- Exportación HTML clásica y ZIP base para GitHub Pages.
 - CSP del Studio y ejecución sin recursos externos de producción.
 
 ## Arquitecturas incluidas
@@ -54,13 +62,13 @@ El estudio recomienda automáticamente una arquitectura según el modelo selecci
 3. Selecciona arquitectura, edita las secciones y elige la skin de salida.
 4. Revisa el preview en escritorio y móvil.
 5. Avanza a Auditoría.
-6. En **Production Architect**, ejecuta **Production Gate**.
+6. En **Premium Output Engine**, ejecuta **Production Gate**.
 7. Opcionalmente introduce la URL pública y activa/desactiva PWA.
-8. Descarga **ZIP Producción** y publica en GitHub Pages.
+8. Descarga **ZIP Premium 4.1** y publica en GitHub Pages.
 
-## Production Gate
+## Production Gate 4.1
 
-El Production Gate captura la salida del exportador HTML existente y comprueba:
+El Production Gate captura la salida HTML, la enriquece y después comprueba:
 
 - longitud de `title`;
 - longitud de `meta description`;
@@ -71,16 +79,22 @@ El Production Gate captura la salida del exportador HTML existente y comprueba:
 - imágenes sin `alt`;
 - enlaces sin `href`;
 - IDs duplicados;
-- scripts externos y handlers inline.
+- scripts externos y handlers inline;
+- Schema.org JSON-LD;
+- navegación móvil;
+- FAQ funcional;
+- formulario local-first;
+- presencia mínima de bloques premium;
+- ausencia de botones inertes.
 
-La puntuación se guarda en `QA_REPORT.md` dentro del ZIP de producción. El gate ayuda a reducir errores, pero no sustituye una revisión humana final, pruebas reales de usabilidad ni validaciones legales del contenido.
+La puntuación se guarda en `QA_REPORT.md` dentro del ZIP. El gate reduce errores, pero no sustituye una revisión humana final, pruebas de usabilidad ni validaciones legales del contenido.
 
-## Exportación Production Architect
+## Exportación Premium 4.1
 
 Con URL pública y PWA activadas, el paquete puede contener:
 
 ```text
-proyecto-production-v4.zip
+proyecto-production-v4.1.zip
 ├─ index.html
 ├─ 404.html
 ├─ README.md
@@ -96,6 +110,21 @@ proyecto-production-v4.zip
 
 Sin URL pública se omite `sitemap.xml` y no se añade `canonical`. Sin PWA se omiten `manifest.webmanifest`, `sw.js` e `icon.svg`.
 
+## Privacidad del formulario local
+
+El formulario generado no tiene backend ni endpoint remoto. Al enviarlo:
+
+1. valida los campos en el navegador;
+2. compone un borrador de solicitud;
+3. lo guarda localmente en `localStorage`;
+4. intenta copiarlo al portapapeles.
+
+No hace `fetch`, `XMLHttpRequest`, telemetría ni envío automático de datos.
+
+## Testimonios y prueba social
+
+Studio 4.1 **no fabrica testimonios**. Una cita comercial solo debería publicarse si procede de contenido real aportado por el propietario del proyecto. El motor usa señales de confianza derivadas del brief, pero no inventa personas, empresas, resultados ni métricas.
+
 ## Tema del estudio frente a skin de salida
 
 Son sistemas separados deliberadamente:
@@ -107,7 +136,7 @@ Así puedes trabajar con U404 Oro y exportar una web Cyberpunk, Editorial, Corpo
 
 ## Guardar e importar
 
-El botón **Guardar** conserva el proyecto en `localStorage`. **Exportar JSON** descarga un archivo compatible con **Importar**. El motor 3.x conserva modelo, brief, arquitectura, secciones, skin y tema del estudio. El ZIP Production v4 añade además un `project.json` de snapshot con las opciones de producción.
+El botón **Guardar** conserva el proyecto en `localStorage`. **Exportar JSON** descarga un archivo compatible con **Importar**. El proyecto conserva modelo, brief, arquitectura, secciones, skin y tema del estudio. El ZIP Production añade un `project.json` reimportable con las opciones de producción.
 
 ## Publicar en GitHub Pages
 
@@ -130,6 +159,7 @@ npm test
 - validación de los 1000 modelos;
 - validación estructural y de seguridad del Studio;
 - validación específica de Production Architect;
+- validación específica de Premium Output 4.1;
 - smoke test DOM del flujo 3.x.
 
 Pruebas E2E completas:
@@ -138,6 +168,8 @@ Pruebas E2E completas:
 npx playwright install chromium
 npm run test:e2e
 ```
+
+La suite E2E incluye una matriz que recorre las **12 arquitecturas** y verifica el bloque premium correspondiente, Production Gate, navegación, FAQ y formulario local.
 
 Prueba total:
 
@@ -163,6 +195,7 @@ GitHub Actions ejecuta Chromium en escritorio y móvil en cada `push` relevante 
 ├─ package.json
 ├─ package-lock.json
 ├─ README.md
+├─ PREMIUM_OUTPUT_4.1.md
 ├─ LICENSE
 ├─ SECURITY.md
 ├─ CHANGELOG.md
@@ -177,6 +210,8 @@ GitHub Actions ejecuta Chromium en escritorio y móvil en cada `push` relevante 
 - Los 1000 modelos son presets estratégicos; la variedad estructural procede de las 12 arquitecturas.
 - El editor trabaja con bloques y contenido; no es un editor libre de píxeles como Figma.
 - La salida es HTML estático. No crea backend, pagos reales ni autenticación.
+- El formulario local prepara una solicitud; no sustituye un sistema real de captación de leads.
+- Las galerías generadas son composiciones estructurales; para fotografía/producto real hay que aportar imágenes reales.
 - El Production Gate es un preflight técnico local, no un sustituto de Lighthouse, axe, validación HTML completa o pruebas con usuarios reales.
 - La PWA exportada usa una estrategia offline deliberadamente simple y apropiada para proyectos estáticos.
 
