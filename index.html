@@ -4,11 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#070A12" />
-  <meta name="description" content="404 Web Architect Studio: constructor visual offline con 1000 presets, arquitecturas reales, editor, auditoría y exportación GitHub Pages." />
+  <meta name="description" content="404 Web Architect Studio 4.0: constructor visual offline con Production Gate, PWA, auditoría y exportación GitHub Pages." />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
-  <title>404 Web Architect Studio 3.1</title>
+  <title>404 Web Architect Studio 4.0 · Production Architect</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/u404/u404-mark.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/u404/u404-style-system.css" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="production-v4.css" />
 </head>
 <body class="u404-theme">
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -20,7 +23,7 @@
         <span class="brand-mark" aria-hidden="true">404</span>
         <div>
           <strong>Web Architect Studio</strong>
-          <small>Studio 3.1 · offline · GitHub-ready</small>
+          <small>Studio 4.0 · Production Architect · offline</small>
         </div>
       </div>
       <div class="top-actions">
@@ -61,7 +64,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Constructor visual offline · listo para GitHub Pages</p>
         <h1>Crea <em>modelos pro</em>, no plantillas.</h1>
-        <p class="lead">Combina 1000 direcciones creativas con 12 arquitecturas reales, edita las secciones, revisa la calidad y descarga un proyecto publicable.</p>
+        <p class="lead">Combina 1000 direcciones creativas con 12 arquitecturas reales, edita secciones, ejecuta Production Gate y descarga una web lista para GitHub Pages.</p>
         <div class="hero-actions">
           <button class="primary big" id="generateFromInputs" type="button">Generar web pro</button>
           <button class="ghost big" id="scrollCatalog" type="button">Explorar modelos</button>
@@ -190,7 +193,7 @@
       <div class="panel-head split-head">
         <div>
           <p class="eyebrow">Plano 03 / 05 · Personalizar</p>
-        <h2 id="builder-title">Construye la arquitectura y revisa el preview</h2>
+          <h2 id="builder-title">Construye la arquitectura y revisa el preview</h2>
         </div>
         <div class="device-switch" role="group" aria-label="Cambiar ancho de preview">
           <button class="chip active" id="desktopPreview" type="button" aria-pressed="true">Desktop</button>
@@ -299,5 +302,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   <script src="models.js"></script>
   <script src="app.js"></script>
+  <script src="production-v4.js"></script>
 </body>
 </html>
