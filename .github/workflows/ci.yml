@@ -35,9 +35,13 @@ jobs:
       - name: Validate Production Architect
         run: npm run test:production
 
-      - name: Syntax check v4 runtime
+      - name: Validate Visual Quality 4.2
+        run: npm run test:visual
+
+      - name: Syntax check runtimes
         run: |
           node --check production-v4.js
+          node --check visual-quality-v4.2.js
           node --check studio-sw.js
 
       - name: DOM smoke test
