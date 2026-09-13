@@ -70,6 +70,16 @@
       link.textContent = button.textContent?.trim() || 'Consultar';
       button.replaceWith(link);
     });
+
+    // Studio 3.x reutilizaba id="contenido" en la introducción y en la rejilla
+    // de Editorial/Magazine. Conservamos el id en la zona de contenido real.
+    const contentNodes = $$('#contenido', doc);
+    if (contentNodes.length > 1) {
+      const preferred = contentNodes.find((node) => node.matches('.grid,.portfolio-grid,.scene-grid,.docs-content')) || contentNodes.at(-1);
+      contentNodes.forEach((node) => {
+        if (node !== preferred) node.removeAttribute('id');
+      });
+    }
     return doc;
   };
 
