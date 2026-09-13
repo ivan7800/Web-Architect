@@ -22,37 +22,41 @@ test.beforeEach(async ({ page }) => {
   await page.goto(appUrl);
 });
 
-test('Studio 4.1 carga Premium Output Engine y PWA', async ({ page }) => {
-  await expect(page).toHaveTitle(/Studio 4\.1.*Premium Output Engine/i);
-  await expect(page.locator('.brand-block small')).toContainText('Studio 4.1');
+test('Studio 4.2 carga Visual Quality sobre Premium Output y PWA', async ({ page }) => {
+  await expect(page).toHaveTitle(/Studio 4\.2.*Visual Quality/i);
+  await expect(page.locator('.brand-block small')).toContainText('Studio 4.2');
   await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'manifest.webmanifest');
   const api = await page.evaluate(() => ({
     version: window.WebArchitectProduction?.version,
-    premiumVersion: window.WebArchitectProduction?.premiumVersion
+    premiumVersion: window.WebArchitectProduction?.premiumVersion,
+    visualVersion: window.WebArchitectProduction?.visualVersion,
+    baseVersion: window.WebArchitectProduction?.baseVersion
   }));
-  expect(api.version).toBe('4.1.0');
+  expect(api.version).toBe('4.2.0');
   expect(api.premiumVersion).toBe('4.1');
+  expect(api.visualVersion).toBe('4.2');
+  expect(api.baseVersion).toBe('4.1.0');
 });
 
-test('Production Gate audita la salida final enriquecida', async ({ page }) => {
+test('Production Gate 4.2 audita Premium + visual + SEO + rendimiento', async ({ page }) => {
   await goToAudit(page);
   await expect(page.locator('#productionCenter')).toBeVisible();
   await page.locator('#productionAudit').click();
   await expect(page.locator('#productionScore')).toContainText('/100');
-  await expect(page.locator('#productionAuditList .production-check')).toHaveCount(16);
+  await expect(page.locator('#productionAuditList .production-check')).toHaveCount(28);
   const score = await page.locator('#productionScore').textContent();
   expect(Number.parseInt(score, 10)).toBeGreaterThanOrEqual(94);
 });
 
-test('exporta ZIP Production 4.1 con URL pública y PWA', async ({ page }) => {
+test('exporta ZIP Production 4.2 con URL pública y PWA', async ({ page }) => {
   await goToAudit(page);
   await page.locator('#productionPublicUrl').fill('https://example.github.io/demo');
   await page.locator('#productionPwa').check();
   const download = await downloadProductionZip(page);
-  await expect(download.suggestedFilename()).toContain('production-v4.1.zip');
+  await expect(download.suggestedFilename()).toContain('production-v4.2.zip');
 });
 
-test('project.json de Production conserva el brief reimportable', async ({ page }) => {
+test('project.json de Production conserva brief, Premium 4.1 y Visual 4.2', async ({ page }) => {
   await page.locator('#brandName').fill('Omega Audit');
   await page.locator('#offer').fill('Proyecto funcional auditable');
   await page.locator('#mainCta').fill('Entrar ahora');
@@ -67,9 +71,11 @@ test('project.json de Production conserva el brief reimportable', async ({ page 
   expect(text).toContain('"offer": "Proyecto funcional auditable"');
   expect(text).toContain('"mainCta": "Entrar ahora"');
   expect(text).toContain('"premiumOutput": "4.1"');
+  expect(text).toContain('"visualQuality": "4.2"');
+  expect(text).toContain('"studioVersion": "4.2.0"');
 });
 
-test('Production repara el CTA inerte de la arquitectura hospitality', async ({ page }) => {
+test('Production 4.2 conserva la reparación del CTA de hospitality', async ({ page }) => {
   await page.locator('#briefContinue').click();
   await page.locator('.model-card').first().click();
   await page.locator('#catalogContinue').click();
@@ -84,7 +90,7 @@ test('Production repara el CTA inerte de la arquitectura hospitality', async ({ 
   expect(text).not.toContain('<button class="cta" type="button">Consultar</button>');
 });
 
-test('Production Center mantiene layout sin overflow en móvil', async ({ page }) => {
+test('Production Center 4.2 mantiene layout sin overflow en móvil', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await goToAudit(page);
   await expect(page.locator('#productionCenter')).toBeVisible();
