@@ -22,30 +22,34 @@ test.beforeEach(async ({ page }) => {
   await page.goto(appUrl);
 });
 
-test('Studio 4.0 carga Production Architect y PWA', async ({ page }) => {
-  await expect(page).toHaveTitle(/Studio 4\.0.*Production Architect/i);
-  await expect(page.locator('.brand-block small')).toContainText('Studio 4.0');
+test('Studio 4.1 carga Premium Output Engine y PWA', async ({ page }) => {
+  await expect(page).toHaveTitle(/Studio 4\.1.*Premium Output Engine/i);
+  await expect(page.locator('.brand-block small')).toContainText('Studio 4.1');
   await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'manifest.webmanifest');
-  const apiVersion = await page.evaluate(() => window.WebArchitectProduction?.version);
-  expect(apiVersion).toBe('4.0.1');
+  const api = await page.evaluate(() => ({
+    version: window.WebArchitectProduction?.version,
+    premiumVersion: window.WebArchitectProduction?.premiumVersion
+  }));
+  expect(api.version).toBe('4.1.0');
+  expect(api.premiumVersion).toBe('4.1');
 });
 
-test('Production Gate audita la salida HTML real', async ({ page }) => {
+test('Production Gate audita la salida final enriquecida', async ({ page }) => {
   await goToAudit(page);
   await expect(page.locator('#productionCenter')).toBeVisible();
   await page.locator('#productionAudit').click();
   await expect(page.locator('#productionScore')).toContainText('/100');
-  await expect(page.locator('#productionAuditList .production-check')).toHaveCount(10);
+  await expect(page.locator('#productionAuditList .production-check')).toHaveCount(16);
   const score = await page.locator('#productionScore').textContent();
-  expect(Number.parseInt(score, 10)).toBeGreaterThanOrEqual(80);
+  expect(Number.parseInt(score, 10)).toBeGreaterThanOrEqual(94);
 });
 
-test('exporta ZIP Production v4 con URL pública y PWA', async ({ page }) => {
+test('exporta ZIP Production 4.1 con URL pública y PWA', async ({ page }) => {
   await goToAudit(page);
   await page.locator('#productionPublicUrl').fill('https://example.github.io/demo');
   await page.locator('#productionPwa').check();
   const download = await downloadProductionZip(page);
-  await expect(download.suggestedFilename()).toContain('production-v4.zip');
+  await expect(download.suggestedFilename()).toContain('production-v4.1.zip');
 });
 
 test('project.json de Production conserva el brief reimportable', async ({ page }) => {
@@ -62,6 +66,7 @@ test('project.json de Production conserva el brief reimportable', async ({ page 
   expect(text).toContain('"brandName": "Omega Audit"');
   expect(text).toContain('"offer": "Proyecto funcional auditable"');
   expect(text).toContain('"mainCta": "Entrar ahora"');
+  expect(text).toContain('"premiumOutput": "4.1"');
 });
 
 test('Production repara el CTA inerte de la arquitectura hospitality', async ({ page }) => {
@@ -75,7 +80,7 @@ test('Production repara el CTA inerte de la arquitectura hospitality', async ({ 
   const path = await download.path();
   const rawZip = await readFile(path);
   const text = rawZip.toString('utf8');
-  expect(text).toContain('href="#contacto"');
+  expect(text).toContain('href="#contacto-local"');
   expect(text).not.toContain('<button class="cta" type="button">Consultar</button>');
 });
 
