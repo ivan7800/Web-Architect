@@ -36,6 +36,14 @@ async function premiumPreview(page) {
   });
 }
 
+async function serveExportedHtml(page, html) {
+  const runtimeUrl = new URL('premium-output-test.html', appUrl).href;
+  await page.route(runtimeUrl, async (route) => {
+    await route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: html });
+  });
+  await page.goto(runtimeUrl, { waitUntil: 'domcontentloaded' });
+}
+
 test.beforeEach(async ({ page }) => {
   await page.goto(appUrl);
 });
@@ -80,7 +88,7 @@ test('runtime exportado hace funcionales el menú móvil y el formulario local-f
   const output = await premiumPreview(page);
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.setContent(output.html, { waitUntil: 'domcontentloaded' });
+  await serveExportedHtml(page, output.html);
 
   const toggle = page.locator('.u404-nav-toggle');
   await expect(toggle).toBeVisible();
