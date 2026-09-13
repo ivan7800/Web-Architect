@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '4.0.0';
+  const VERSION = '4.0.1';
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const waitFrame = () => new Promise((resolve) => requestAnimationFrame(() => resolve()));
@@ -57,6 +57,17 @@
     return node;
   };
 
+  const repairInertControls = (doc) => {
+    $$('.booking-bar button[type="button"]', doc).forEach((button) => {
+      const link = doc.createElement('a');
+      link.className = button.className || 'cta';
+      link.href = '#contacto';
+      link.textContent = button.textContent?.trim() || 'Consultar';
+      button.replaceWith(link);
+    });
+    return doc;
+  };
+
   async function captureGeneratedHtml() {
     const button = $('#downloadHtml');
     if (!button) throw new Error('No se encontró el exportador HTML del estudio.');
@@ -96,7 +107,7 @@
   };
 
   const auditHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const doc = repairInertControls(new DOMParser().parseFromString(html, 'text/html'));
     const title = doc.querySelector('title')?.textContent.trim() || '';
     const description = doc.querySelector('meta[name="description"]')?.getAttribute('content')?.trim() || '';
     const headings = $$('h1', doc);
@@ -150,7 +161,7 @@
   const buildServiceWorker = () => `const CACHE='web-architect-export-v4';\nconst CORE=['./','./index.html','./manifest.webmanifest','./icon.svg'];\nself.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));});\nself.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));});\nself.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const url=new URL(event.request.url);if(url.origin!==location.origin)return;if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put('./index.html',copy));return response;}).catch(()=>caches.match('./index.html')));return;}event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response;})));});\n`;
 
   const enhanceHtml = (html, { publicUrl, pwa }) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const doc = repairInertControls(new DOMParser().parseFromString(html, 'text/html'));
     const title = doc.querySelector('title')?.textContent.trim() || ($('#brandName')?.value.trim() || 'Proyecto');
     const description = doc.querySelector('meta[name="description"]')?.getAttribute('content')?.trim() || ($('#offer')?.value.trim() || title);
 
@@ -184,25 +195,28 @@
   };
 
   const getProjectSnapshot = (publicUrl, pwa) => ({
-    schema: 'u404-web-architect-production-project',
+    schema: 'u404-web-architect-project',
     version: 4,
     studioVersion: VERSION,
-    brandName: $('#brandName')?.value.trim() || '',
-    offer: $('#offer')?.value.trim() || '',
-    audience: $('#audience')?.value.trim() || '',
-    mainCta: $('#mainCta')?.value.trim() || '',
-    tone: $('#tone')?.value || '',
-    intensity: Number($('#intensity')?.value || 0),
     modelId: $('.model-card.selected')?.dataset.id || localStorage.getItem('404-web-architect-selected') || null,
+    brief: {
+      brandName: $('#brandName')?.value.trim() || '',
+      offer: $('#offer')?.value.trim() || '',
+      audience: $('#audience')?.value.trim() || '',
+      mainCta: $('#mainCta')?.value.trim() || '',
+      tone: $('#tone')?.value || '',
+      intensity: Number($('#intensity')?.value || 0)
+    },
     architecture: $('#architectureSelect')?.value || null,
     outputSkin: $('.skin-btn.active')?.dataset.skin || localStorage.getItem('404-web-architect-skin') || null,
+    appTheme: $('#appTheme')?.value || localStorage.getItem('404-web-architect-app-theme') || 'oro',
     sections: $$('#sectionEditor [data-section-id]').map((row) => ({
       id: row.dataset.sectionId,
       title: $('.section-title-input', row)?.value || '',
       enabled: $('.section-enabled', row)?.checked !== false
     })),
     production: { publicUrl, pwa },
-    exportedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString()
   });
 
   const buildQaReport = (audit, publicUrl, pwa) => {
@@ -210,7 +224,7 @@
     return `# Production QA Report\n\n- **Studio:** 404 Web Architect Studio ${VERSION}\n- **Score:** ${audit.score}/100\n- **Resultado:** ${audit.passed}/${audit.total} comprobaciones superadas\n- **URL pública:** ${publicUrl || 'No definida'}\n- **PWA:** ${pwa ? 'Activada' : 'Desactivada'}\n- **Fecha:** ${new Date().toISOString()}\n\n## Comprobaciones\n\n${lines.join('\n')}\n\n## Gate\n\n${audit.score >= 90 ? 'APTO para revisión final y publicación.' : 'REVISAR antes de publicar: corrige los puntos pendientes y vuelve a ejecutar el Production Gate.'}\n`;
   };
 
-  const buildReadme = (brand, publicUrl, pwa, score) => `# ${brand}\n\nExportación Production Architect de **404 Web Architect Studio ${VERSION}**.\n\n## Contenido\n\n- \`index.html\` — web final\n- \`404.html\` — fallback compatible con GitHub Pages\n- \`project.json\` — snapshot editable del proyecto\n- \`QA_REPORT.md\` — auditoría previa a publicación\n${pwa ? '- `manifest.webmanifest`, `sw.js` e `icon.svg` — PWA/offline\n' : ''}- \`.nojekyll\` — compatibilidad GitHub Pages\n${publicUrl ? '- `robots.txt` y `sitemap.xml` — indexación\n' : '- `robots.txt` — reglas básicas de indexación\n'}\n## Quality Gate\n\nPuntuación de exportación: **${score}/100**.\n\n## Publicación en GitHub Pages\n\n1. Sube todos los archivos a la raíz del repositorio.\n2. Ve a **Settings → Pages**.\n3. Selecciona **Deploy from a branch**, rama \`main\` y carpeta \`/root\`.\n4. Publica y comprueba la URL final en móvil y escritorio.\n${publicUrl ? `\nURL configurada: ${publicUrl}/\n` : '\nAntes de SEO definitivo, define la URL pública en Production Center y vuelve a exportar.\n'}\n`;
+  const buildReadme = (brand, publicUrl, pwa, score) => `# ${brand}\n\nExportación Production Architect de **404 Web Architect Studio ${VERSION}**.\n\n## Contenido\n\n- \`index.html\` — web final\n- \`404.html\` — fallback compatible con GitHub Pages\n- \`project.json\` — proyecto reimportable en Web Architect Studio\n- \`QA_REPORT.md\` — auditoría previa a publicación\n${pwa ? '- `manifest.webmanifest`, `sw.js` e `icon.svg` — PWA/offline\n' : ''}- \`.nojekyll\` — compatibilidad GitHub Pages\n${publicUrl ? '- `robots.txt` y `sitemap.xml` — indexación\n' : '- `robots.txt` — reglas básicas de indexación\n'}\n## Quality Gate\n\nPuntuación de exportación: **${score}/100**.\n\n## Publicación en GitHub Pages\n\n1. Sube todos los archivos a la raíz del repositorio.\n2. Ve a **Settings → Pages**.\n3. Selecciona **Deploy from a branch**, rama \`main\` y carpeta \`/root\`.\n4. Publica y comprueba la URL final en móvil y escritorio.\n${publicUrl ? `\nURL configurada: ${publicUrl}/\n` : '\nAntes de SEO definitivo, define la URL pública en Production Center y vuelve a exportar.\n'}\n`;
 
   const CRC_TABLE = (() => {
     const table = new Uint32Array(256);

@@ -1,4 +1,4 @@
-const CACHE = 'web-architect-studio-v4.0.0';
+const CACHE = 'web-architect-studio-v4.0.1';
 const CORE = [
   './',
   './index.html',
