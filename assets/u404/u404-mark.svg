@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">404 Web Architect Studio</title>
+  <desc id="desc">Marca 404 dorada sobre fondo oscuro.</desc>
+  <rect width="512" height="512" rx="116" fill="#070A12"/>
+  <rect x="28" y="28" width="456" height="456" rx="94" fill="none" stroke="#E8CB78" stroke-width="12"/>
+  <path d="M116 150h65v126h30v50h-30v44h-58v-44H56v-47l60-129Zm7 78-26 48h26v-48Zm124-78h94c39 0 64 22 64 58 0 21-10 38-27 48 22 9 34 28 34 52 0 40-28 62-72 62h-93V150Zm58 48v39h29c10 0 17-7 17-19s-7-20-18-20h-28Zm0 86v38h33c12 0 19-7 19-19 0-13-7-19-20-19h-32Z" fill="#E8CB78"/>
+</svg>
