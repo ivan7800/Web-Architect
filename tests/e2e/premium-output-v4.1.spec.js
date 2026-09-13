@@ -37,11 +37,19 @@ async function premiumPreview(page) {
 }
 
 async function serveExportedHtml(page, html) {
-  const runtimeUrl = new URL('premium-output-test.html', appUrl).href;
-  await page.route(runtimeUrl, async (route) => {
+  await page.evaluate(async () => {
+    if (!('serviceWorker' in navigator)) return;
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.map((registration) => registration.unregister()));
+  });
+
+  const runtimePage = await page.context().newPage();
+  const runtimeUrl = new URL('premium-output-test.html?e2e=1', appUrl).href;
+  await runtimePage.route('**/premium-output-test.html*', async (route) => {
     await route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: html });
   });
-  await page.goto(runtimeUrl, { waitUntil: 'domcontentloaded' });
+  await runtimePage.goto(runtimeUrl, { waitUntil: 'domcontentloaded' });
+  return runtimePage;
 }
 
 test.beforeEach(async ({ page }) => {
@@ -87,23 +95,27 @@ test('runtime exportado hace funcionales el menú móvil y el formulario local-f
   await goToBuilder(page);
   const output = await premiumPreview(page);
 
-  await page.setViewportSize({ width: 390, height: 844 });
-  await serveExportedHtml(page, output.html);
+  const runtimePage = await serveExportedHtml(page, output.html);
+  try {
+    await runtimePage.setViewportSize({ width: 390, height: 844 });
 
-  const toggle = page.locator('.u404-nav-toggle');
-  await expect(toggle).toBeVisible();
-  await toggle.click();
-  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.locator('.nav')).toHaveAttribute('data-menu-open', 'true');
+    const toggle = runtimePage.locator('.u404-nav-toggle');
+    await expect(toggle).toBeVisible();
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(runtimePage.locator('.nav')).toHaveAttribute('data-menu-open', 'true');
 
-  const form = page.locator('[data-u404-local-form]');
-  await form.locator('[name="name"]').fill('Ada');
-  await form.locator('[name="email"]').fill('ada@example.com');
-  await form.locator('[name="message"]').fill('Quiero conocer mejor la propuesta.');
-  await form.locator('button[type="submit"]').click();
-  await expect(form.locator('.u404-form-status')).toContainText('Solicitud guardada localmente');
+    const form = runtimePage.locator('[data-u404-local-form]');
+    await form.locator('[name="name"]').fill('Ada');
+    await form.locator('[name="email"]').fill('ada@example.com');
+    await form.locator('[name="message"]').fill('Quiero conocer mejor la propuesta.');
+    await form.locator('button[type="submit"]').click();
+    await expect(form.locator('.u404-form-status')).toContainText('Solicitud guardada localmente');
 
-  const stored = await page.evaluate(() => localStorage.getItem('u404-contact-draft'));
-  expect(stored).toContain('ada@example.com');
-  expect(stored).toContain('Quiero conocer mejor la propuesta.');
+    const stored = await runtimePage.evaluate(() => localStorage.getItem('u404-contact-draft'));
+    expect(stored).toContain('ada@example.com');
+    expect(stored).toContain('Quiero conocer mejor la propuesta.');
+  } finally {
+    await runtimePage.close();
+  }
 });
