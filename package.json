@@ -1,12 +1,13 @@
 {
   "name": "404-web-architect-studio",
-  "version": "3.1.0",
-  "description": "Constructor visual offline con 1000 presets, 12 arquitecturas, editor de secciones, auditoría real y exportación GitHub Pages.",
+  "version": "4.0.0",
+  "description": "Constructor visual offline con Production Gate, PWA, auditoría real y exportación GitHub Pages.",
   "type": "module",
   "scripts": {
-    "test": "node tools/validate-models.mjs && node tools/validate-app.mjs && node tools/smoke-v3.mjs",
+    "test": "node tools/validate-models.mjs && node tools/validate-app.mjs && node tools/validate-production-v4.mjs && node tools/smoke-v3.mjs",
     "test:models": "node tools/validate-models.mjs",
     "test:app": "node tools/validate-app.mjs",
+    "test:production": "node tools/validate-production-v4.mjs",
     "test:smoke": "node tools/smoke-v3.mjs",
     "test:e2e": "playwright test",
     "test:all": "npm test && npm run test:e2e"
@@ -20,6 +21,8 @@
     "offline",
     "responsive",
     "offline-first",
+    "pwa",
+    "production-gate",
     "playwright",
     "commercial-kit",
     "e2e"
