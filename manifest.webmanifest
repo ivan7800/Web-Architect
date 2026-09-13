@@ -1,0 +1,19 @@
+{
+  "name": "404 Web Architect Studio 4.0",
+  "short_name": "Web Architect 404",
+  "description": "Constructor visual offline con Production Gate y exportación GitHub Pages.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#070A12",
+  "theme_color": "#070A12",
+  "icons": [
+    {
+      "src": "./assets/u404/u404-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
