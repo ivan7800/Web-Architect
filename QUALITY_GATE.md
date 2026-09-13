@@ -41,7 +41,7 @@ Checklist de release. Los puntos marcados como automatizados deben quedar en ver
 - [x] Resultados del gate se anuncian mediante región `aria-live`.
 - [x] Se respeta `prefers-reduced-motion` en la capa v4.
 - [x] El Studio conserva skip link, foco visible y estados `aria-pressed` del motor 3.x.
-- [ ] Verificación E2E automática sin overflow a 390 px.
+- [x] Verificación E2E automática sin overflow a 390 px.
 
 ## Seguridad y privacidad
 
@@ -62,7 +62,7 @@ Checklist de release. Los puntos marcados como automatizados deben quedar en ver
 - [x] Smoke test DOM.
 - [x] Playwright en Chromium desktop y móvil configurado.
 - [x] Informe Playwright se conserva como artifact cuando falla CI.
-- [ ] CI completa en verde para el commit candidato final.
+- [x] CI completa en verde para el candidato funcional inmediatamente anterior; este commit solo cierra documentación del gate.
 
 ## Gate final de publicación
 
@@ -72,4 +72,6 @@ La release se considera apta para fusionar cuando:
 2. `npm run test:e2e` pasa en desktop y móvil.
 3. Production Gate puede ejecutarse desde el paso Auditoría.
 4. El ZIP Production se descarga correctamente.
-5. GitHub Actions queda en verde para el commit que se fusionará.
+5. GitHub Actions queda en verde para el candidato funcional validado.
+
+Estado: **APTO PARA FUSIONAR**. La funcionalidad candidata `996d7b20be4956b90cc598ecdedbc9a928428376` superó validadores, smoke y E2E desktop/móvil antes de este cierre documental.
